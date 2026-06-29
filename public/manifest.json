@@ -1,6 +1,6 @@
 {
-  "name": "learnEnglish",
-  "short_name": "learnEnglish",
+  "name": "learnEEnglish",
+  "short_name": "learnEEnglish",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#282c34",
@@ -8,21 +8,21 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/icon.jpg",
+      "src": "/icon.png",
       "sizes": "192x192",
-      "type": "image/jpg",
+      "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icon.jpg",
+      "src": "/icon.png",
       "sizes": "512x512",
-      "type": "image/jpg",
+      "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icon.jpg",
+      "src": "/icon.png",
       "sizes": "512x512",
-      "type": "image/jpg",
+      "type": "image/png",
       "purpose": "maskable"
     }
   ],
