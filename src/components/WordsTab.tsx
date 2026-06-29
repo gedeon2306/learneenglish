@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaSearch, FaListUl, FaThLarge, FaCheck, FaRegCircle, FaTimes, FaArrowLeft, FaArrowRight, FaVolumeUp } from "react-icons/fa";
 
 const allWords = [
   // LOT 1
@@ -646,9 +647,12 @@ export default function WordsTab() {
       </div>
 
       <div style={{ padding: "16px 0", borderBottom: "1px solid #1E293B" }}>
-        <input value={search} onChange={e => setSearch(e.target.value)}
-          placeholder="🔍 Rechercher un mot en anglais ou francais..."
-          style={{ width: "100%", boxSizing: "border-box", background: "#1E293B", border: "1px solid #334155", borderRadius: "8px", padding: "10px 14px", color: "#E2E8F0", fontSize: "14px", outline: "none" }} />
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <FaSearch style={{ color: "#94A3B8", minWidth: "18px" }} />
+          <input value={search} onChange={e => setSearch(e.target.value)}
+            placeholder="Rechercher un mot en anglais ou francais..."
+            style={{ width: "100%", boxSizing: "border-box", background: "#1E293B", border: "1px solid #334155", borderRadius: "8px", padding: "10px 14px", color: "#E2E8F0", fontSize: "14px", outline: "none" }} />
+        </div>
       </div>
 
       {search ? (
@@ -658,7 +662,7 @@ export default function WordsTab() {
             <div key={i} style={{ background: "#1E293B", borderRadius: "10px", padding: "12px 14px", marginBottom: "8px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <div>
                 <span style={{ fontWeight: 700, fontSize: "16px", color: "#F1F5F9" }}>{w.en}</span>
-                <span style={{ marginLeft: "10px", fontSize: "13px", color: "#94A3B8" }}>→ {w.fr}</span>
+                <span style={{ marginLeft: "10px", fontSize: "13px", color: "#94A3B8", display: "inline-flex", alignItems: "center", gap: "6px" }}><FaArrowRight /> {w.fr}</span>
               </div>
               <span style={{ background: catColors[w.cat] || "#6B7280", color: "#fff", fontSize: "10px", padding: "2px 8px", borderRadius: "99px", fontWeight: 600, flexShrink: 0 }}>{w.cat}</span>
             </div>
@@ -673,8 +677,8 @@ export default function WordsTab() {
               const done = ll === WORDS_PER_LOT;
               return (
                 <button key={i} onClick={() => { setCurrentLot(i); setCardIndex(0); setShowFr(false); setFlipped({}); }}
-                  style={{ flexShrink: 0, background: currentLot === i ? "#3B82F6" : done ? "#10B981" : "#1E293B", border: "none", borderRadius: "8px", padding: "8px 12px", color: currentLot === i || done ? "#fff" : "#94A3B8", fontSize: "13px", fontWeight: currentLot === i ? 700 : 400, cursor: "pointer", whiteSpace: "nowrap" }}>
-                  Jour {i + 1} {done ? "✓" : ll > 0 ? "(" + ll + "/" + WORDS_PER_LOT + ")" : ""}
+                  style={{ flexShrink: 0, background: currentLot === i ? "#3B82F6" : done ? "#10B981" : "#1E293B", border: "none", borderRadius: "8px", padding: "8px 12px", color: currentLot === i || done ? "#fff" : "#94A3B8", fontSize: "13px", fontWeight: currentLot === i ? 700 : 400, cursor: "pointer", whiteSpace: "nowrap", display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                  Jour {i + 1} {done ? <FaCheck /> : ll > 0 ? "(" + ll + "/" + WORDS_PER_LOT + ")" : ""}
                 </button>
               );
             })}
@@ -691,11 +695,11 @@ export default function WordsTab() {
               <div style={{ width: (learnedCount / WORDS_PER_LOT * 100) + "%", background: "#10B981", height: "100%", transition: "width 0.3s" }} />
             </div>
             <div style={{ display: "flex", gap: "8px", marginTop: "12px" }}>
-              <button onClick={() => setView("list")} style={{ flex: 1, background: view === "list" ? "#3B82F6" : "#1E293B", border: "none", borderRadius: "8px", padding: "8px", color: "#fff", fontSize: "13px", cursor: "pointer", fontWeight: view === "list" ? 700 : 400 }}>
-                📋 Liste
+              <button onClick={() => setView("list")} style={{ flex: 1, background: view === "list" ? "#3B82F6" : "#1E293B", border: "none", borderRadius: "8px", padding: "8px", color: "#fff", fontSize: "13px", cursor: "pointer", fontWeight: view === "list" ? 700 : 400, display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "6px" }}>
+                <FaListUl /> Liste
               </button>
-              <button onClick={() => { setView("cards"); setCardIndex(0); setShowFr(false); }} style={{ flex: 1, background: view === "cards" ? "#3B82F6" : "#1E293B", border: "none", borderRadius: "8px", padding: "8px", color: "#fff", fontSize: "13px", cursor: "pointer", fontWeight: view === "cards" ? 700 : 400 }}>
-                🃏 Cartes
+              <button onClick={() => { setView("cards"); setCardIndex(0); setShowFr(false); }} style={{ flex: 1, background: view === "cards" ? "#3B82F6" : "#1E293B", border: "none", borderRadius: "8px", padding: "8px", color: "#fff", fontSize: "13px", cursor: "pointer", fontWeight: view === "cards" ? 700 : 400, display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "6px" }}>
+                <FaThLarge /> Cartes
               </button>
             </div>
           </div>
@@ -709,13 +713,25 @@ export default function WordsTab() {
                   <div key={i} onClick={() => toggleFlip(i)} style={{ background: isD ? "#052e16" : "#1E293B", border: "1px solid " + (isD ? "#10B981" : "#334155"), borderRadius: "10px", padding: "12px 14px", marginBottom: "8px", cursor: "pointer", transition: "all 0.2s" }}>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr auto", alignItems: "center", gap: "12px" }}>
                       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
-                        <span style={{ fontWeight: 700, fontSize: "16px", color: isD ? "#4ADE80" : "#F1F5F9" }}>{w.en}</span>
-                        {isF && <div style={{ marginTop: "6px", fontSize: "14px", color: "#94A3B8" }}>🇫🇷 {w.fr}</div>}
+                        <span style={{ fontWeight: 700, fontSize: "16px", color: isD ? "#4ADE80" : "#F1F5F9" }}>
+                          {w.en} {  }
+                          <span style={{ background: catColors[w.cat] || "#6B7280", color: "#fff", fontSize: "10px", padding: "2px 7px", borderRadius: "99px", fontWeight: 600 }}>{w.cat}</span>
+                        </span>
+                        {isF && <div style={{ marginTop: "6px", fontSize: "14px", color: "#94A3B8", display: "inline-flex", alignItems: "center", gap: "6px" }}>🇫🇷 {w.fr}</div>}
                       </div>
-                      <div style={{ display: "flex", alignItems: "center", gap: "8px", justifyContent: "flex-end" }}>
-                        <span style={{ background: catColors[w.cat] || "#6B7280", color: "#fff", fontSize: "10px", padding: "2px 7px", borderRadius: "99px", fontWeight: 600 }}>{w.cat}</span>
-                        <button onClick={e => { e.stopPropagation(); toggleLearned(i); }} style={{ background: isD ? "#10B981" : "#334155", border: "none", borderRadius: "6px", padding: "4px 8px", color: "#fff", fontSize: "14px", cursor: "pointer" }}>
-                          {isD ? "✓" : "○"}
+                      <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "6px", justifyContent: "flex-end" }}>
+                        <button 
+                          onClick={e => { e.stopPropagation(); toggleLearned(i); }} 
+                          style={{ background: isD ? "#10B981" : "#334155", border: "none", borderRadius: "6px", padding: "4px 8px", color: "#fff", fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "6px" }}
+                        >
+                          {isD ? <FaCheck /> : <FaRegCircle />}
+                        </button>
+                        <button
+                          type="button"
+                          style={{ background: "#334155", border: "none", borderRadius: "6px", padding: "4px 8px", color: "#fff", fontSize: "14px", cursor: "not-allowed", opacity: 0.7, display: "inline-flex", alignItems: "center", justifyContent: "center" }}
+                          onClick={(e) => { e.stopPropagation(); }}
+                        >
+                          <FaVolumeUp />
                         </button>
                       </div>
                     </div>
@@ -736,20 +752,23 @@ export default function WordsTab() {
                   </>
                 ) : (
                   <>
-                    <div style={{ fontSize: "14px", color: "#94A3B8", marginBottom: "8px" }}>{words[cardIndex].en}</div>
-                    <div style={{ fontSize: "28px", fontWeight: 800, color: "#60A5FA" }}>{words[cardIndex].fr}</div>
+                    <div style={{ fontSize: "28px", fontWeight: 800, color: "#F1F5F9", marginBottom: "10px" }}>{words[cardIndex].en}</div>
+                    <div style={{ fontSize: "28px", fontWeight: 800, color: "#60A5FA" }}>🇫🇷 {words[cardIndex].fr}</div>
                   </>
                 )}
               </div>
               {showFr && (
-                <div style={{ display: "flex", gap: "12px", marginTop: "16px", width: "100%", maxWidth: "360px" }}>
-                  <button onClick={() => { toggleLearned(cardIndex); setShowFr(false); if (cardIndex < WORDS_PER_LOT - 1) setCardIndex(c => c + 1); }} style={{ flex: 1, background: "#10B981", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer" }}>✓ Je sais</button>
-                  <button onClick={() => { setShowFr(false); if (cardIndex < WORDS_PER_LOT - 1) setCardIndex(c => c + 1); }} style={{ flex: 1, background: "#EF4444", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer" }}>✗ A revoir</button>
-                </div>
+                <>
+                  <div style={{ display: "flex", gap: "12px", marginTop: "16px", width: "100%", maxWidth: "360px" }}>
+                    <button onClick={() => { toggleLearned(cardIndex); setShowFr(false); if (cardIndex < WORDS_PER_LOT - 1) setCardIndex(c => c + 1); }} style={{ flex: 1, background: "#10B981", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px" }}><FaCheck /> Je sais</button>
+                    <button onClick={() => { setShowFr(false); if (cardIndex < WORDS_PER_LOT - 1) setCardIndex(c => c + 1); }} style={{ flex: 1, background: "#EF4444", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px" }}><FaTimes /> A revoir</button>
+                  </div>
+                  <button type="button" onClick={() => {}} style={{ width: "100%", maxWidth: "360px", background: "#334155", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", marginTop: "12px" }}><FaVolumeUp /> Son</button>
+                </>
               )}
               <div style={{ display: "flex", gap: "8px", marginTop: "16px" }}>
-                <button onClick={() => { setCardIndex(c => Math.max(0, c - 1)); setShowFr(false); }} style={{ background: "#1E293B", border: "1px solid #334155", borderRadius: "8px", padding: "8px 16px", color: "#94A3B8", cursor: "pointer" }}>← Prec</button>
-                <button onClick={() => { setCardIndex(c => Math.min(WORDS_PER_LOT - 1, c + 1)); setShowFr(false); }} style={{ background: "#1E293B", border: "1px solid #334155", borderRadius: "8px", padding: "8px 16px", color: "#94A3B8", cursor: "pointer" }}>Suiv →</button>
+                <button onClick={() => { setCardIndex(c => Math.max(0, c - 1)); setShowFr(false); }} style={{ background: "#1E293B", border: "1px solid #334155", borderRadius: "8px", padding: "8px 16px", color: "#94A3B8", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "6px" }}><FaArrowLeft /> Prec</button>
+                <button onClick={() => { setCardIndex(c => Math.min(WORDS_PER_LOT - 1, c + 1)); setShowFr(false); }} style={{ background: "#1E293B", border: "1px solid #334155", borderRadius: "8px", padding: "8px 16px", color: "#94A3B8", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "6px" }}>Suiv <FaArrowRight /></button>
               </div>
               <div style={{ display: "flex", gap: "4px", marginTop: "16px", flexWrap: "wrap", justifyContent: "center", maxWidth: "360px" }}>
                 {words.map((_, i) => (

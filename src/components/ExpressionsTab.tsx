@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { FaSearch, FaListUl, FaThLarge, FaCheck, FaRegCircle, FaVolumeUp, FaArrowLeft, FaArrowRight, FaTimes } from "react-icons/fa";
 
 type Expression = {
   group: string;
@@ -194,24 +195,27 @@ export default function ExpressionsTab() {
 
       <div style={{ padding: "16px 0", borderBottom: "1px solid #1E293B" }}>
         <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-          <input
-            value={search}
-            onChange={(e) => { setSearch(e.target.value); setCardIndex(0); }}
-            placeholder="🔍 Rechercher une expression, signification ou exemple..."
-            style={{ width: "100%", boxSizing: "border-box", background: "#1E293B", border: "1px solid #334155", borderRadius: "10px", padding: "12px 14px", color: "#E2E8F0", fontSize: "14px", outline: "none" }}
-          />
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <FaSearch style={{ color: "#94A3B8", minWidth: "18px" }} />
+            <input
+              value={search}
+              onChange={(e) => { setSearch(e.target.value); setCardIndex(0); }}
+              placeholder="Rechercher une expression, signification ou exemple..."
+              style={{ width: "100%", boxSizing: "border-box", background: "#1E293B", border: "1px solid #334155", borderRadius: "10px", padding: "12px 14px", color: "#E2E8F0", fontSize: "14px", outline: "none" }}
+            />
+          </div>
           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginTop: "12px" }}>
             <button
               onClick={() => setView("list")}
-              style={{ flex: 1, minWidth: "120px", background: view === "list" ? "#3B82F6" : "#1E293B", border: "none", borderRadius: "8px", padding: "8px", color: "#fff", fontSize: "13px", cursor: "pointer", fontWeight: view === "list" ? 700 : 400 }}
+              style={{ flex: 1, minWidth: "120px", background: view === "list" ? "#3B82F6" : "#1E293B", border: "none", borderRadius: "8px", padding: "8px", color: "#fff", fontSize: "13px", cursor: "pointer", fontWeight: view === "list" ? 700 : 400, display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "6px" }}
             >
-              📋 Liste
+              <FaListUl /> Liste
             </button>
             <button
               onClick={() => setView("cards")}
-              style={{ flex: 1, minWidth: "120px", background: view === "cards" ? "#3B82F6" : "#1E293B", border: "none", borderRadius: "8px", padding: "8px", color: "#fff", fontSize: "13px", cursor: "pointer", fontWeight: view === "cards" ? 700 : 400 }}
+              style={{ flex: 1, minWidth: "120px", background: view === "cards" ? "#3B82F6" : "#1E293B", border: "none", borderRadius: "8px", padding: "8px", color: "#fff", fontSize: "13px", cursor: "pointer", fontWeight: view === "cards" ? 700 : 400, display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "6px" }}
             >
-              🃏 Cartes
+              <FaThLarge /> Cartes
             </button>
           </div>
         </div>
@@ -254,27 +258,34 @@ export default function ExpressionsTab() {
                         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
                           <span style={{ fontWeight: 700, fontSize: "16px", color: isLearned ? "#4ADE80" : "#F1F5F9" }}>{item.expression}</span>
                           {isRevealed ? (
-                            <div style={{ marginTop: "6px", fontSize: "14px", color: "#94A3B8" }}>
-                              🇫🇷 {item.meaning}
-                            </div>
+                            <div style={{ marginTop: "6px", fontSize: "14px", color: "#94A3B8", display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                            🇫🇷 {item.meaning}
+                          </div>
                           ) : (
                             <div style={{ fontSize: "11px", color: "#475569", marginTop: "4px" }}>Appuie pour voir la traduction</div>
                           )}
                         </div>
-                        <div style={{ display: "flex", alignItems: "center", gap: "8px", justifyContent: "flex-end" }}>
+                        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "6px", justifyContent: "flex-end" }}>
                           <button
                             onClick={(e) => { e.stopPropagation(); toggleLearned(item.expression); }}
-                            style={{ background: isLearned ? "#10B981" : "#334155", border: "none", borderRadius: "6px", padding: "4px 8px", color: "#fff", fontSize: "14px", cursor: "pointer" }}
+                          style={{ background: isLearned ? "#10B981" : "#334155", border: "none", borderRadius: "6px", padding: "4px 8px", color: "#fff", fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
+                        >
+                          {isLearned ? <FaCheck /> : <FaRegCircle />}
+                          </button>
+                          <button
+                            type="button"
+                            style={{ background: "#334155", border: "none", borderRadius: "6px", padding: "4px 8px", color: "#fff", fontSize: "14px", cursor: "not-allowed", opacity: 0.7, display: "inline-flex", alignItems: "center", justifyContent: "center" }}
+                            onClick={(e) => { e.stopPropagation(); }}
                           >
-                            {isLearned ? "✓" : "○"}
+                            <FaVolumeUp />
                           </button>
                         </div>
                       </div>
                       {isRevealed && (
                         <div style={{ margin: "8px 0 0", color: "#94A3B8", fontSize: "13px" }}>
                           <div style={{ fontWeight: 700, marginBottom: "6px" }}>Exemple :</div>
-                          <div>🇬🇧 {item.example}</div>
-                          <div style={{ marginTop: "4px" }}>🇫🇷 {item.exampleFrench}</div>
+                          <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>🇬🇧</div> {item.example} <br />
+                          <div style={{ marginTop: "4px", display: "inline-flex", alignItems: "center", gap: "6px" }}>🇫🇷</div> {item.exampleFrench}
                         </div>
                       )}
                     </div>
@@ -312,12 +323,11 @@ export default function ExpressionsTab() {
                 <div style={{ fontSize: "28px", fontWeight: 800, color: "#F1F5F9", marginBottom: "10px" }}>{currentCard.expression}</div>
                 {revealed[currentCard.expression] ? (
                   <>
-                    <div style={{ fontSize: "14px", color: "#94A3B8", marginBottom: "10px" }}>{currentCard.expression}</div>
-                    <div style={{ fontSize: "22px", fontWeight: 700, color: "#60A5FA" }}>{currentCard.meaning}</div>
+                    <div style={{ fontSize: "22px", fontWeight: 700, color: "#60A5FA" }}>🇫🇷 {currentCard.meaning}</div>
                     <div style={{ marginTop: "16px", color: "#94A3B8", fontSize: "13px", textAlign: "left", width: "100%" }}>
                       <div style={{ marginBottom: "6px", fontWeight: 700 }}>Exemple :</div>
-                      <div>🇬🇧 {currentCard.example}</div>
-                      <div style={{ marginTop: "4px" }}>🇫🇷 {currentCard.exampleFrench}</div>
+                      <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>🇬🇧</div> {currentCard.example} <br />
+                      <div style={{ marginTop: "4px", display: "inline-flex", alignItems: "center", gap: "6px" }}>🇫🇷</div> {currentCard.exampleFrench}
                     </div>
                   </>
                 ) : (
@@ -330,41 +340,50 @@ export default function ExpressionsTab() {
           </div>
 
           {currentCard && revealed[currentCard.expression] && (
-            <div style={{ display: "flex", gap: "12px", marginTop: "16px", width: "100%", maxWidth: "360px" }}>
+            <>
+              <div style={{ display: "flex", gap: "12px", marginTop: "16px", width: "100%", maxWidth: "360px" }}>
+                <button
+                  onClick={() => {
+                    toggleLearned(currentCard.expression);
+                    setRevealed((prev) => ({ ...prev, [currentCard.expression]: false }));
+                    setCardIndex((prev) => Math.min(filtered.length - 1, prev + 1));
+                  }}
+                  style={{ flex: 1, background: "#10B981", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px" }}
+                >
+                  <FaCheck /> Je sais
+                </button>
+                <button
+                  onClick={() => {
+                    setRevealed((prev) => ({ ...prev, [currentCard.expression]: false }));
+                    setCardIndex((prev) => Math.min(filtered.length - 1, prev + 1));
+                  }}
+                  style={{ flex: 1, background: "#EF4444", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px" }}
+                >
+                  <FaTimes /> À revoir
+                </button>
+              </div>
               <button
-                onClick={() => {
-                  toggleLearned(currentCard.expression);
-                  setRevealed((prev) => ({ ...prev, [currentCard.expression]: false }));
-                  setCardIndex((prev) => Math.min(filtered.length - 1, prev + 1));
-                }}
-                style={{ flex: 1, background: "#10B981", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer" }}
+                type="button"
+                onClick={() => {}}
+                style={{ width: "100%", maxWidth: "360px", background: "#334155", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", marginTop: "12px" }}
               >
-                ✓ Je sais
+                <FaVolumeUp /> Son
               </button>
-              <button
-                onClick={() => {
-                  setRevealed((prev) => ({ ...prev, [currentCard.expression]: false }));
-                  setCardIndex((prev) => Math.min(filtered.length - 1, prev + 1));
-                }}
-                style={{ flex: 1, background: "#EF4444", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer" }}
-              >
-                ✗ À revoir
-              </button>
-            </div>
+            </>
           )}
 
           <div style={{ display: "flex", gap: "8px", marginTop: "16px", justifyContent: "center" }}>
             <button
               onClick={() => { setCardIndex((prev) => Math.max(0, prev - 1)); setRevealed({}); }}
-              style={{ background: "#1E293B", border: "1px solid #334155", borderRadius: "8px", padding: "8px 16px", color: "#94A3B8", cursor: "pointer" }}
+              style={{ background: "#1E293B", border: "1px solid #334155", borderRadius: "8px", padding: "8px 16px", color: "#94A3B8", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "6px" }}
             >
-              ← Préc
+              <FaArrowLeft /> Préc
             </button>
             <button
               onClick={() => { setCardIndex((prev) => Math.min(filtered.length - 1, prev + 1)); setRevealed({}); }}
-              style={{ background: "#1E293B", border: "1px solid #334155", borderRadius: "8px", padding: "8px 16px", color: "#94A3B8", cursor: "pointer" }}
+              style={{ background: "#1E293B", border: "1px solid #334155", borderRadius: "8px", padding: "8px 16px", color: "#94A3B8", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "6px" }}
             >
-              Suiv →
+              Suiv <FaArrowRight />
             </button>
           </div>
 
