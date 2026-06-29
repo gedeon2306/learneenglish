@@ -695,7 +695,7 @@ export default function WordsTab() {
                 📋 Liste
               </button>
               <button onClick={() => { setView("cards"); setCardIndex(0); setShowFr(false); }} style={{ flex: 1, background: view === "cards" ? "#3B82F6" : "#1E293B", border: "none", borderRadius: "8px", padding: "8px", color: "#fff", fontSize: "13px", cursor: "pointer", fontWeight: view === "cards" ? 700 : 400 }}>
-                🃏 Flashcards
+                🃏 Cartes
               </button>
             </div>
           </div>

@@ -220,23 +220,25 @@ export default function PhrasalVerbsTab() {
                         transition: "all 0.2s",
                       }}
                     >
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <div style={{ flex: 1 }}>
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr auto", alignItems: "center", gap: "12px" }}>
+                        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
                           <span style={{ fontWeight: 700, fontSize: "16px", color: isLearned ? "#4ADE80" : "#F1F5F9" }}>{item.phrase}</span>
                           {isRevealed ? (
-                            <div style={{ marginTop: "4px", fontSize: "14px", color: "#94A3B8" }}>
+                            <div style={{ marginTop: "6px", fontSize: "14px", color: "#94A3B8" }}>
                               🇫🇷 {item.translation}
                             </div>
                           ) : (
                             <div style={{ fontSize: "11px", color: "#475569", marginTop: "4px" }}>Appuie pour voir la traduction</div>
                           )}
                         </div>
-                        <button
-                          onClick={(e) => { e.stopPropagation(); toggleLearned(item.phrase); }}
-                          style={{ background: isLearned ? "#10B981" : "#334155", border: "none", borderRadius: "6px", padding: "4px 8px", color: "#fff", fontSize: "14px", cursor: "pointer" }}
-                        >
-                          {isLearned ? "✓" : "○"}
-                        </button>
+                        <div style={{ display: "flex", alignItems: "center", gap: "8px", justifyContent: "flex-end" }}>
+                          <button
+                            onClick={(e) => { e.stopPropagation(); toggleLearned(item.phrase); }}
+                            style={{ background: isLearned ? "#10B981" : "#334155", border: "none", borderRadius: "6px", padding: "4px 8px", color: "#fff", fontSize: "14px", cursor: "pointer" }}
+                          >
+                            {isLearned ? "✓" : "○"}
+                          </button>
+                        </div>
                       </div>
                       {isRevealed && (
                         <div style={{ margin: "8px 0 0", color: "#94A3B8", fontSize: "13px" }}>
@@ -254,86 +256,96 @@ export default function PhrasalVerbsTab() {
         </div>
       ) : (
         <div style={{ padding: "20px 0 80px", display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <div style={{ width: "100%", maxWidth: "420px", textAlign: "center" }}>
-            <p style={{ color: "#94A3B8", fontSize: "13px", marginBottom: "8px" }}>{cardIndex + 1} / {filtered.length}</p>
-            <div
-              onClick={() => currentCard && toggleReveal(currentCard.phrase)}
-              style={{
-                width: "100%",
-                minHeight: "220px",
-                background: "#1E293B",
-                border: "2px solid #334155",
-                borderRadius: "18px",
-                padding: "24px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                cursor: currentCard ? "pointer" : "default",
-                textAlign: "center",
-                transition: "all 0.3s",
-              }}
-            >
-              {currentCard ? (
-                <>
-                  <div style={{ fontSize: "28px", fontWeight: 800, color: "#F1F5F9", marginBottom: "10px" }}>{currentCard.phrase}</div>
-                  {revealed[currentCard.phrase] ? (
-                    <>
-                      <div style={{ fontSize: "14px", color: "#94A3B8", marginBottom: "10px" }}>{currentCard.phrase}</div>
-                      <div style={{ fontSize: "22px", fontWeight: 700, color: "#60A5FA" }}>{currentCard.translation}</div>
-                      <div style={{ marginTop: "16px", color: "#94A3B8", fontSize: "13px", textAlign: "left", width: "100%" }}>
-                        <div style={{ marginBottom: "6px", fontWeight: 700 }}>Exemple :</div>
-                        <div>🇬🇧 {currentCard.example}</div>
-                        <div style={{ marginTop: "4px" }}>🇫🇷 {currentCard.exampleFrench}</div>
-                      </div>
-                    </>
-                  ) : (
-                    <p style={{ margin: 0, color: "#64748B", fontSize: "13px" }}>Appuie pour voir la traduction</p>
-                  )}
-                </>
-              ) : (
-                <p style={{ margin: 0, color: "#94A3B8", fontSize: "14px" }}>Aucun phrasal verb à afficher.</p>
-              )}
-            </div>
-            {currentCard && (
-              <div style={{ display: "flex", gap: "12px", marginTop: "16px", width: "100%", maxWidth: "360px" }}>
-                <button
-                  onClick={() => { toggleLearned(currentCard.phrase); setRevealed((prev) => ({ ...prev, [currentCard.phrase]: false })); }}
-                  style={{ flex: 1, background: "#10B981", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer" }}
-                >
-                  ✓ Je sais
-                </button>
-                <button
-                  onClick={() => { setCardIndex((prev) => Math.min(filtered.length - 1, prev + 1)); setRevealed((prev) => ({ ...prev, [currentCard.phrase]: false })); }}
-                  style={{ flex: 1, background: "#EF4444", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer" }}
-                >
-                  ✗ A revoir
-                </button>
-              </div>
+          <p style={{ color: "#94A3B8", fontSize: "13px", marginBottom: "8px" }}>{cardIndex + 1} / {filtered.length}</p>
+          <div
+            onClick={() => currentCard && toggleReveal(currentCard.phrase)}
+            style={{
+              width: "100%",
+              maxWidth: "360px",
+              minHeight: "200px",
+              background: revealed[currentCard?.phrase] ? "#1E3A5F" : "#1E293B",
+              border: "2px solid " + (revealed[currentCard?.phrase] ? "#3B82F6" : "#334155"),
+              borderRadius: "16px",
+              padding: "24px",
+              boxSizing: "border-box",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              cursor: currentCard ? "pointer" : "default",
+              textAlign: "center",
+              transition: "all 0.3s",
+            }}
+          >
+            {currentCard ? (
+              <>
+                <div style={{ fontSize: "28px", fontWeight: 800, color: "#F1F5F9", marginBottom: "10px" }}>{currentCard.phrase}</div>
+                {revealed[currentCard.phrase] ? (
+                  <>
+                    <div style={{ fontSize: "14px", color: "#94A3B8", marginBottom: "10px" }}>{currentCard.phrase}</div>
+                    <div style={{ fontSize: "22px", fontWeight: 700, color: "#60A5FA" }}>{currentCard.translation}</div>
+                    <div style={{ marginTop: "16px", color: "#94A3B8", fontSize: "13px", textAlign: "left", width: "100%" }}>
+                      <div style={{ marginBottom: "6px", fontWeight: 700 }}>Exemple :</div>
+                      <div>🇬🇧 {currentCard.example}</div>
+                      <div style={{ marginTop: "4px" }}>🇫🇷 {currentCard.exampleFrench}</div>
+                    </div>
+                  </>
+                ) : (
+                  <p style={{ margin: 0, color: "#64748B", fontSize: "13px" }}>Appuie pour voir la traduction</p>
+                )}
+              </>
+            ) : (
+              <p style={{ margin: 0, color: "#94A3B8", fontSize: "14px" }}>Aucun phrasal verb à afficher.</p>
             )}
-            <div style={{ display: "flex", gap: "8px", marginTop: "16px" }}>
+          </div>
+
+          {currentCard && revealed[currentCard.phrase] && (
+            <div style={{ display: "flex", gap: "12px", marginTop: "16px", width: "100%", maxWidth: "360px" }}>
               <button
-                onClick={() => { setCardIndex((prev) => Math.max(0, prev - 1)); setRevealed({}); }}
-                style={{ background: "#1E293B", border: "1px solid #334155", borderRadius: "8px", padding: "8px 16px", color: "#94A3B8", cursor: "pointer" }}
+                onClick={() => {
+                  toggleLearned(currentCard.phrase);
+                  setRevealed((prev) => ({ ...prev, [currentCard.phrase]: false }));
+                  setCardIndex((prev) => Math.min(filtered.length - 1, prev + 1));
+                }}
+                style={{ flex: 1, background: "#10B981", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer" }}
               >
-                ← Préc
+                ✓ Je sais
               </button>
               <button
-                onClick={() => { setCardIndex((prev) => Math.min(filtered.length - 1, prev + 1)); setRevealed({}); }}
-                style={{ background: "#1E293B", border: "1px solid #334155", borderRadius: "8px", padding: "8px 16px", color: "#94A3B8", cursor: "pointer" }}
+                onClick={() => {
+                  setRevealed((prev) => ({ ...prev, [currentCard.phrase]: false }));
+                  setCardIndex((prev) => Math.min(filtered.length - 1, prev + 1));
+                }}
+                style={{ flex: 1, background: "#EF4444", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer" }}
               >
-                Suiv →
+                ✗ A revoir
               </button>
             </div>
-            <div style={{ display: "flex", gap: "4px", marginTop: "16px", flexWrap: "wrap", justifyContent: "center", maxWidth: "360px" }}>
-              {filtered.map((item, index) => (
-                <div
-                  key={item.phrase}
-                  onClick={() => { setCardIndex(index); setRevealed({}); }}
-                  style={{ width: "8px", height: "8px", borderRadius: "50%", cursor: "pointer", background: learned[item.phrase] ? "#10B981" : index === cardIndex ? "#3B82F6" : "#334155" }}
-                />
-              ))}
-            </div>
+          )}
+
+          <div style={{ display: "flex", gap: "8px", marginTop: "16px", justifyContent: "center" }}>
+            <button
+              onClick={() => { setCardIndex((prev) => Math.max(0, prev - 1)); setRevealed({}); }}
+              style={{ background: "#1E293B", border: "1px solid #334155", borderRadius: "8px", padding: "8px 16px", color: "#94A3B8", cursor: "pointer" }}
+            >
+              ← Préc
+            </button>
+            <button
+              onClick={() => { setCardIndex((prev) => Math.min(filtered.length - 1, prev + 1)); setRevealed({}); }}
+              style={{ background: "#1E293B", border: "1px solid #334155", borderRadius: "8px", padding: "8px 16px", color: "#94A3B8", cursor: "pointer" }}
+            >
+              Suiv →
+            </button>
+          </div>
+
+          <div style={{ display: "flex", gap: "4px", marginTop: "16px", flexWrap: "wrap", justifyContent: "center", maxWidth: "360px" }}>
+            {filtered.map((item, index) => (
+              <div
+                key={item.phrase}
+                onClick={() => { setCardIndex(index); setRevealed({}); }}
+                style={{ width: "8px", height: "8px", borderRadius: "50%", cursor: "pointer", background: learned[item.phrase] ? "#10B981" : index === cardIndex ? "#3B82F6" : "#334155" }}
+              />
+            ))}
           </div>
         </div>
       )}
