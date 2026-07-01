@@ -46,4 +46,5 @@ Une application web pour apprendre l'anglais en mémorisant des mots, phrasal ve
 
 - `src/` : Contient le code source de l'application.
   - `components/` : Composants React pour chaque onglet.
- 
+  - `App.tsx` : Composant principal qui gère la navigation entre les onglets.
+- `public/` : Fichiers statiques.
