@@ -48,3 +48,7 @@ Une application web pour apprendre l'anglais en mémorisant des mots, phrasal ve
   - `components/` : Composants React pour chaque onglet.
   - `App.tsx` : Composant principal qui gère la navigation entre les onglets.
 - `public/` : Fichiers statiques.
+
+## Contribution
+
+Les contributions sont les bienvenues ! Veuillez ouvrir une issue pour discuter des changements que vous souhaitez apporter.
