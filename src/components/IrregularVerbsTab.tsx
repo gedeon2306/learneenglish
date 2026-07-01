@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { FaSearch, FaListUl, FaThLarge, FaCheck, FaRegCircle, FaTimes, FaArrowLeft, FaArrowRight, FaVolumeUp } from "react-icons/fa";
 import { loadFromStorage, saveToStorage, STORAGE_KEYS } from "../utils/storage";
+import { speakSequence, stopSpeech } from "../utils/speech";
 
 type IrregularVerb = {
   base: string;
@@ -175,6 +176,16 @@ export default function IrregularVerbsTab() {
   const toggleReveal = (base: string) => setRevealed((prev) => ({ ...prev, [base]: !prev[base] }));
   const toggleLearned = (base: string) => setLearned((prev) => ({ ...prev, [base]: !prev[base] }));
 
+  const speakVerb = (item: IrregularVerb) => {
+    stopSpeech();
+    speakSequence([
+      { text: item.base, lang: "en-US" },
+      { text: `Prétérit : ${item.preterit}`, lang: "en-US" },
+      { text: `Participe passé : ${item.pastParticiple}`, lang: "en-US" },
+      { text: `Traduction : ${item.translation}`, lang: "fr-FR" },
+    ]);
+  };
+
   return (
     <div>
       <div style={{ padding: "20px 0", borderBottom: "1px solid #1E293B" }}>
@@ -280,8 +291,8 @@ export default function IrregularVerbsTab() {
                       </button>
                       <button
                         type="button"
-                        style={{ background: "#334155", border: "none", borderRadius: "6px", padding: "4px 8px", color: "#fff", fontSize: "14px", cursor: "not-allowed", opacity: 0.7, display: "inline-flex", alignItems: "center", justifyContent: "center" }}
-                        onClick={(e) => { e.stopPropagation(); }}
+                        style={{ background: "#334155", border: "none", borderRadius: "6px", padding: "4px 8px", color: "#fff", fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
+                        onClick={(e) => { e.stopPropagation(); speakVerb(item); }}
                       >
                         <FaVolumeUp />
                       </button>
@@ -364,7 +375,7 @@ export default function IrregularVerbsTab() {
               </div>
               <button
                 type="button"
-                onClick={() => {}}
+                onClick={() => currentCard && speakVerb(currentCard)}
                 style={{ width: "100%", maxWidth: "360px", background: "#334155", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", marginTop: "12px" }}
               >
                 <FaVolumeUp /> Son

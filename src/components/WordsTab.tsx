@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaSearch, FaListUl, FaThLarge, FaCheck, FaRegCircle, FaTimes, FaArrowLeft, FaArrowRight, FaVolumeUp } from "react-icons/fa";
 import { loadFromStorage, saveToStorage, STORAGE_KEYS } from "../utils/storage";
+import { speakSequence, stopSpeech } from "../utils/speech";
 
 const allWords = [
   // LOT 1
@@ -625,6 +626,14 @@ export default function WordsTab() {
   const toggleFlip = (i: number) => setFlipped(f => ({ ...f, [lotKey + "-" + i]: !f[lotKey + "-" + i] }));
   const toggleLearned = (i: number) => setLearned(l => ({ ...l, [lotKey + "-" + i]: !l[lotKey + "-" + i] }));
 
+  const speakWord = (word: { en: string; fr: string }) => {
+    stopSpeech();
+    speakSequence([
+      { text: word.en, lang: "en-US" },
+      { text: word.fr, lang: "fr-FR" },
+    ]);
+  };
+
   const learnedCount = words.filter((_, i) => learned[lotKey + "-" + i]).length;
   const totalLearned = Object.values(learned).filter(Boolean).length;
 
@@ -737,8 +746,8 @@ export default function WordsTab() {
                         </button>
                         <button
                           type="button"
-                          style={{ background: "#334155", border: "none", borderRadius: "6px", padding: "4px 8px", color: "#fff", fontSize: "14px", cursor: "not-allowed", opacity: 0.7, display: "inline-flex", alignItems: "center", justifyContent: "center" }}
-                          onClick={(e) => { e.stopPropagation(); }}
+                          style={{ background: "#334155", border: "none", borderRadius: "6px", padding: "4px 8px", color: "#fff", fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
+                          onClick={(e) => { e.stopPropagation(); speakWord(w); }}
                         >
                           <FaVolumeUp />
                         </button>
@@ -772,7 +781,7 @@ export default function WordsTab() {
                     <button onClick={() => { toggleLearned(cardIndex); setShowFr(false); if (cardIndex < WORDS_PER_LOT - 1) setCardIndex(c => c + 1); }} style={{ flex: 1, background: "#10B981", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px" }}><FaCheck /> Je sais</button>
                     <button onClick={() => { setShowFr(false); if (cardIndex < WORDS_PER_LOT - 1) setCardIndex(c => c + 1); }} style={{ flex: 1, background: "#EF4444", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px" }}><FaTimes /> A revoir</button>
                   </div>
-                  <button type="button" onClick={() => {}} style={{ width: "100%", maxWidth: "360px", background: "#334155", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", marginTop: "12px" }}><FaVolumeUp /> Son</button>
+                  <button type="button" onClick={(e) => { e.stopPropagation(); speakWord(words[cardIndex]); }} style={{ width: "100%", maxWidth: "360px", background: "#334155", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", marginTop: "12px" }}><FaVolumeUp /> Son</button>
                 </>
               )}
               <div style={{ display: "flex", gap: "8px", marginTop: "16px" }}>
