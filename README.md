@@ -22,3 +22,8 @@ Une application web pour apprendre l'anglais en mémorisant des mots, phrasal ve
    ```bash
    npm install
    ```
+
+3. Lancez l'application en mode développement :
+   ```bash
+   npm run dev
+   ```
