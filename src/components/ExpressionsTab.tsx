@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { FaSearch, FaListUl, FaThLarge, FaCheck, FaRegCircle, FaVolumeUp, FaArrowLeft, FaArrowRight, FaTimes } from "react-icons/fa";
-
+import { FaSearch, FaListUl, FaThLarge, FaCheck, FaRegCircle, FaVolumeUp, FaArrowLeft, FaArrowRight, FaTimes } from "react-icons/fa";import { loadFromStorage, saveToStorage, STORAGE_KEYS } from "../utils/storage";
 type Expression = {
   group: string;
   expression: string;
@@ -138,7 +137,11 @@ export default function ExpressionsTab() {
   const [view, setView] = useState("list");
   const [cardIndex, setCardIndex] = useState(0);
   const [revealed, setRevealed] = useState<Record<string, boolean>>({});
-  const [learned, setLearned] = useState<Record<string, boolean>>({});
+  const [learned, setLearned] = useState<Record<string, boolean>>(() => loadFromStorage(STORAGE_KEYS.learnedExpressions, {}));
+
+  useEffect(() => {
+    saveToStorage(STORAGE_KEYS.learnedExpressions, learned);
+  }, [learned]);
 
   const filtered = useMemo(
     () => expressions.filter((item) =>
