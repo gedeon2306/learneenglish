@@ -21,7 +21,7 @@ export default function App() {
           learnEnglish with JihrelDev
         </h1>
         <p style={{ margin: "8px 0 0", color: "#94A3B8", fontSize: "14px" }}>
-          Découvrez le vocabulaire anglais essentiel et les phrasal verbs dans des onglets pratiques.
+          Votre allié pour apprendre l'anglais : vocabulaire, verbes et expressions clés à portée de main.
         </p>
       </header>
 
