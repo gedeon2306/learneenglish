@@ -41,3 +41,9 @@ Une application web pour apprendre l'anglais en mémorisant des mots, phrasal ve
 - **TypeScript** : Pour un typage statique et une meilleure maintenabilité.
 - **Vite** : Pour le bundling et le développement rapide.
 - **oxlint** : Pour le linting du code.
+
+## Structure du projet
+
+- `src/` : Contient le code source de l'application.
+  - `components/` : Composants React pour chaque onglet.
+ 
