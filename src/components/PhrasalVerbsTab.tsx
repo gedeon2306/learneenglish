@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { FaSearch, FaListUl, FaThLarge, FaCheck, FaRegCircle, FaTimes, FaArrowLeft, FaArrowRight, FaVolumeUp } from "react-icons/fa";
+import { loadFromStorage, saveToStorage, STORAGE_KEYS } from "../utils/storage";
 
 type PhrasalVerb = {
   group: string;
@@ -108,7 +109,11 @@ export default function PhrasalVerbsTab() {
   const [view, setView] = useState("list");
   const [cardIndex, setCardIndex] = useState(0);
   const [revealed, setRevealed] = useState<Record<string, boolean>>({});
-  const [learned, setLearned] = useState<Record<string, boolean>>({});
+  const [learned, setLearned] = useState<Record<string, boolean>>(() => loadFromStorage(STORAGE_KEYS.learnedPhrasalVerbs, {}));
+
+  useEffect(() => {
+    saveToStorage(STORAGE_KEYS.learnedPhrasalVerbs, learned);
+  }, [learned]);
 
   const filtered = useMemo(
     () => phrasalVerbs.filter((item) =>

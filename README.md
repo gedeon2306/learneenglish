@@ -1,32 +1,58 @@
-# React + TypeScript + Vite
+# learnEnglish
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Une application web pour apprendre l'anglais en mémorisant des mots, phrasal verbs et expressions.
 
-Currently, two official plugins are available:
+## Fonctionnalités
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Interface intuitive** : Navigation par onglets pour accéder facilement aux différentes catégories.
+- **Thème sombre** : Conçu pour une expérience utilisateur confortable.
+- **Contenu pédagogique** : Organisé en trois sections principales :
+  - Mots (*Words*)
+  - Phrasal Verbs
+  - Expressions
 
-## React Compiler
+## Installation
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Clonez le dépôt :
+   ```bash
+   git clone https://github.com/gedeon2306/learnenglish.git
+   ```
 
-## Expanding the Oxlint configuration
+2. Installez les dépendances :
+   ```bash
+   npm install
+   ```
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+3. Lancez l'application en mode développement :
+   ```bash
+   npm run dev
+   ```
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+## Scripts disponibles
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+- `npm run dev` : Démarre le serveur de développement.
+- `npm run build` : Construit l'application pour la production.
+- `npm run lint` : Exécute le linter pour vérifier la qualité du code.
+- `npm run preview` : Affiche une prévisualisation de la version de production.
+
+## Technologies utilisées
+
+- **React 19** : Pour la construction de l'interface utilisateur.
+- **TypeScript** : Pour un typage statique et une meilleure maintenabilité.
+- **Vite** : Pour le bundling et le développement rapide.
+- **oxlint** : Pour le linting du code.
+
+## Structure du projet
+
+- `src/` : Contient le code source de l'application.
+  - `components/` : Composants React pour chaque onglet.
+  - `App.tsx` : Composant principal qui gère la navigation entre les onglets.
+- `public/` : Fichiers statiques.
+
+## Contribution
+
+Les contributions sont les bienvenues ! Veuillez ouvrir une issue pour discuter des changements que vous souhaitez apporter.
+
+## Licence
+
+Ce projet est sous licence MIT.

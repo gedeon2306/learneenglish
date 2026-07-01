@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaSearch, FaListUl, FaThLarge, FaCheck, FaRegCircle, FaTimes, FaArrowLeft, FaArrowRight, FaVolumeUp } from "react-icons/fa";
+import { loadFromStorage, saveToStorage, STORAGE_KEYS } from "../utils/storage";
 
 const allWords = [
   // LOT 1
@@ -601,13 +602,21 @@ const catColors: Record<string, string> = {
 };
 
 export default function WordsTab() {
-  const [currentLot, setCurrentLot] = useState(0);
+  const [currentLot, setCurrentLot] = useState<number>(() => loadFromStorage(STORAGE_KEYS.currentLot, 0));
   const [flipped, setFlipped] = useState<Record<string, boolean>>({});
-  const [learned, setLearned] = useState<Record<string, boolean>>({});
+  const [learned, setLearned] = useState<Record<string, boolean>>(() => loadFromStorage(STORAGE_KEYS.learnedWords, {}));
   const [view, setView] = useState("list");
   const [cardIndex, setCardIndex] = useState(0);
   const [showFr, setShowFr] = useState(false);
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    saveToStorage(STORAGE_KEYS.currentLot, currentLot);
+  }, [currentLot]);
+
+  useEffect(() => {
+    saveToStorage(STORAGE_KEYS.learnedWords, learned);
+  }, [learned]);
 
   const getLotWords = (idx: number) => allWords.slice(idx * WORDS_PER_LOT, (idx + 1) * WORDS_PER_LOT);
   const words = getLotWords(currentLot);
