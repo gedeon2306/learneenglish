@@ -17,3 +17,8 @@ Une application web pour apprendre l'anglais en mémorisant des mots, phrasal ve
    ```bash
    git clone https://github.com/gedeon2306/learnenglish.git
    ```
+
+2. Installez les dépendances :
+   ```bash
+   npm install
+   ```
