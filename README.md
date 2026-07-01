@@ -39,3 +39,5 @@ Une application web pour apprendre l'anglais en mémorisant des mots, phrasal ve
 
 - **React 19** : Pour la construction de l'interface utilisateur.
 - **TypeScript** : Pour un typage statique et une meilleure maintenabilité.
+- **Vite** : Pour le bundling et le développement rapide.
+- **oxlint** : Pour le linting du code.
