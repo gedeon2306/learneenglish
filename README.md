@@ -32,3 +32,5 @@ Une application web pour apprendre l'anglais en mémorisant des mots, phrasal ve
 
 - `npm run dev` : Démarre le serveur de développement.
 - `npm run build` : Construit l'application pour la production.
+- `npm run lint` : Exécute le linter pour vérifier la qualité du code.
+- `npm run preview` : Affiche une prévisualisation de la version de production.
