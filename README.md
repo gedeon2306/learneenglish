@@ -34,3 +34,8 @@ Une application web pour apprendre l'anglais en mémorisant des mots, phrasal ve
 - `npm run build` : Construit l'application pour la production.
 - `npm run lint` : Exécute le linter pour vérifier la qualité du code.
 - `npm run preview` : Affiche une prévisualisation de la version de production.
+
+## Technologies utilisées
+
+- **React 19** : Pour la construction de l'interface utilisateur.
+- **TypeScript** : Pour un typage statique et une meilleure maintenabilité.
