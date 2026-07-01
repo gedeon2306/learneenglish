@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
-import { FaSearch, FaListUl, FaThLarge, FaCheck, FaRegCircle, FaVolumeUp, FaArrowLeft, FaArrowRight, FaTimes } from "react-icons/fa";import { loadFromStorage, saveToStorage, STORAGE_KEYS } from "../utils/storage";
+import { FaSearch, FaListUl, FaThLarge, FaCheck, FaRegCircle, FaVolumeUp, FaArrowLeft, FaArrowRight, FaTimes } from "react-icons/fa";
+import { loadFromStorage, saveToStorage, STORAGE_KEYS } from "../utils/storage";
+import { speakSequence, stopSpeech } from "../utils/speech";
 type Expression = {
   group: string;
   expression: string;
@@ -173,6 +175,16 @@ export default function ExpressionsTab() {
   const toggleReveal = (expression: string) => setRevealed((prev) => ({ ...prev, [expression]: !prev[expression] }));
   const toggleLearned = (expression: string) => setLearned((prev) => ({ ...prev, [expression]: !prev[expression] }));
 
+  const speakExpression = (item: Expression) => {
+    stopSpeech();
+    speakSequence([
+      { text: item.expression, lang: "en-US" },
+      { text: item.meaning, lang: "fr-FR" },
+      { text: `Exemple : ${item.example}`, lang: "en-US" },
+      { text: `Traduction : ${item.exampleFrench}`, lang: "fr-FR" },
+    ]);
+  };
+
   return (
     <div>
       <div style={{ padding: "20px 0", borderBottom: "1px solid #1E293B" }}>
@@ -277,8 +289,8 @@ export default function ExpressionsTab() {
                           </button>
                           <button
                             type="button"
-                            style={{ background: "#334155", border: "none", borderRadius: "6px", padding: "4px 8px", color: "#fff", fontSize: "14px", cursor: "not-allowed", opacity: 0.7, display: "inline-flex", alignItems: "center", justifyContent: "center" }}
-                            onClick={(e) => { e.stopPropagation(); }}
+                            style={{ background: "#334155", border: "none", borderRadius: "6px", padding: "4px 8px", color: "#fff", fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
+                            onClick={(e) => { e.stopPropagation(); speakExpression(item); }}
                           >
                             <FaVolumeUp />
                           </button>
@@ -367,7 +379,7 @@ export default function ExpressionsTab() {
               </div>
               <button
                 type="button"
-                onClick={() => {}}
+                onClick={() => currentCard && speakExpression(currentCard)}
                 style={{ width: "100%", maxWidth: "360px", background: "#334155", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", marginTop: "12px" }}
               >
                 <FaVolumeUp /> Son
