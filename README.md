@@ -27,3 +27,8 @@ Une application web pour apprendre l'anglais en mémorisant des mots, phrasal ve
    ```bash
    npm run dev
    ```
+
+## Scripts disponibles
+
+- `npm run dev` : Démarre le serveur de développement.
+- `npm run build` : Construit l'application pour la production.
