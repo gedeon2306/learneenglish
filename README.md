@@ -10,3 +10,10 @@ Une application web pour apprendre l'anglais en mémorisant des mots, phrasal ve
   - Mots (*Words*)
   - Phrasal Verbs
   - Expressions
+
+## Installation
+
+1. Clonez le dépôt :
+   ```bash
+   git clone https://github.com/gedeon2306/learnenglish.git
+   ```
