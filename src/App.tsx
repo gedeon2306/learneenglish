@@ -1,10 +1,12 @@
 import { useState } from "react";
 import WordsTab from "./components/WordsTab";
 import PhrasalVerbsTab from "./components/PhrasalVerbsTab";
+import IrregularVerbsTab from "./components/IrregularVerbsTab";
 import ExpressionsTab from "./components/ExpressionsTab";
 
 const tabs = [
   { id: "words", label: "Mots" },
+  { id: "irregular", label: "Verbes irréguliers" },
   { id: "phrasal", label: "Phrasal Verbs" },
   { id: "expressions", label: "Expressions" },
 ];
@@ -19,7 +21,7 @@ export default function App() {
           learnEnglish with JihrelDev
         </h1>
         <p style={{ margin: "8px 0 0", color: "#94A3B8", fontSize: "14px" }}>
-          Découvrez le vocabulaire anglais essentiel et les phrasal verbs dans des onglets pratiques.
+          Votre allié pour apprendre l'anglais : vocabulaire, verbes et expressions clés à portée de main.
         </p>
       </header>
 
@@ -48,6 +50,7 @@ export default function App() {
 
       <main style={{ padding: "16px" }}>
         {activeTab === "words" && <WordsTab />}
+        {activeTab === "irregular" && <IrregularVerbsTab />}
         {activeTab === "phrasal" && <PhrasalVerbsTab />}
         {activeTab === "expressions" && <ExpressionsTab />}
       </main>

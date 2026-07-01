@@ -4,6 +4,7 @@ const STORAGE_KEYS = {
   currentLot: "learnEnglish_currentLot",
   learnedPhrasalVerbs: "learnEnglish_learnedPhrasalVerbs",
   learnedExpressions: "learnEnglish_learnedExpressions",
+  learnedIrregularVerbs: "learnEnglish_learnedIrregularVerbs",
 };
 
 // Helpers pour stocker et récupérer les données
