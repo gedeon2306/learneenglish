@@ -52,3 +52,7 @@ Une application web pour apprendre l'anglais en mémorisant des mots, phrasal ve
 ## Contribution
 
 Les contributions sont les bienvenues ! Veuillez ouvrir une issue pour discuter des changements que vous souhaitez apporter.
+
+## Licence
+
+Ce projet est sous licence MIT.
