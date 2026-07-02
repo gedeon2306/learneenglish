@@ -8,6 +8,10 @@ export type SpeechPart = {
 export const cleanSpeechText = (text: string, lang: string = "en-US") => {
   let normalized = text.trim();
 
+  if (lang === "en-US" && normalized.toUpperCase() === "I") {
+    normalized = "eye";
+  }
+
   normalized = normalized.replace(/\s*\([^)]*\)\s*/g, " ");
   normalized = normalized.replace(/\s*\/\s*/g, lang === "fr-FR" ? " ou " : " or ");
   normalized = normalized.replace(/\bou\b/gi, lang === "fr-FR" ? "où" : "or");
