@@ -1,4 +1,4 @@
-# learnEnglish
+# learnEEnglish
 
 <div align="center">
   <img src="public/icon.png" alt="learnEnglish Logo" width="120" />

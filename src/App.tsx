@@ -20,7 +20,7 @@ export default function App() {
     <div style={{ minHeight: "100vh", background: "#0F172A", color: "#E2E8F0", fontFamily: "'Segoe UI', sans-serif" }}>
       <header style={{ padding: "20px 16px", borderBottom: "1px solid #1E293B" }}>
         <h1 style={{ margin: 0, fontSize: "28px", fontWeight: 800, color: "#60A5FA" }}>
-          learnEnglish with JihrelDev
+          learnEEnglish with JihrelDev
         </h1>
         <p style={{ margin: "8px 0 0", color: "#94A3B8", fontSize: "14px" }}>
           Votre allié pour apprendre l'anglais : vocabulaire, verbes et expressions clés à portée de main.
