@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { FaVolumeUp, FaBookOpen, FaGamepad, FaSearch, FaExchangeAlt, FaLayerGroup } from "react-icons/fa";
+import { FaVolumeUp, FaGamepad, FaExchangeAlt } from "react-icons/fa";
+import { GoClockFill } from "react-icons/go";
 import { speakSequence, stopSpeech } from "../utils/speech";
 
 // ========== DONNÉES PÉDAGOGIQUES : TEMPS GRAMMATICAUX ==========
@@ -159,36 +160,6 @@ const tensesList: TenseInfo[] = [
   },
 ];
 
-// ========== DONNÉES : VERBES IRRÉGULIERS ==========
-
-const irregularVerbs = [
-  { base: "be", past: "was / were", participle: "been", translation: "être" },
-  { base: "become", past: "became", participle: "become", translation: "devenir" },
-  { base: "begin", past: "began", participle: "begun", translation: "commencer" },
-  { base: "break", past: "broke", participle: "broken", translation: "casser" },
-  { base: "bring", past: "brought", participle: "brought", translation: "apporter" },
-  { base: "build", past: "built", participle: "built", translation: "construire" },
-  { base: "buy", past: "bought", participle: "bought", translation: "acheter" },
-  { base: "do", past: "did", participle: "done", translation: "faire" },
-  { base: "eat", past: "ate", participle: "eaten", translation: "manger" },
-  { base: "go", past: "went", participle: "gone", translation: "aller" },
-  { base: "have", past: "had", participle: "had", translation: "avoir" },
-  { base: "make", past: "made", participle: "made", translation: "fabriquer" },
-  { base: "speak", past: "spoke", participle: "spoken", translation: "parler" },
-  { base: "take", past: "took", participle: "taken", translation: "prendre" },
-  { base: "write", past: "wrote", participle: "written", translation: "écrire" },
-];
-
-// ========== DONNÉES : PHRASAL VERBS ==========
-
-const phrasalVerbs = [
-  { verb: "give up", meaning: "Abandonner", example: "Never give up on your dreams!" },
-  { verb: "look for", meaning: "Chercher", example: "I am looking for my keys." },
-  { verb: "turn on / off", meaning: "Allumer / Éteindre", example: "Please turn off the lights." },
-  { verb: "find out", meaning: "Découvrir / Apprendre", example: "I found out the truth yesterday." },
-  { verb: "carry on", meaning: "Continuer", example: "Carry on with your good work!" },
-  { verb: "run out of", meaning: "Être à court de / Ne plus avoir", example: "We ran out of milk this morning." },
-];
 
 // ========== GENERATEUR / CONJUGUEUR DE DÉMONSTRATION ==========
 
@@ -243,7 +214,6 @@ function generateConjugation(verbBase: string, tenseName: string, isPassive: boo
 export default function ConjugationLessonTab() {
   const [activeTab, setActiveTab] = useState<"tenses" | "verbs" | "practice">("tenses");
   const [categoryFilter, setCategoryFilter] = useState<string>("All");
-  const [searchVerb, setSearchVerb] = useState<string>("");
 
   // État du conjugueur interactif
   const [customVerb, setCustomVerb] = useState<string>("work");
@@ -259,18 +229,12 @@ export default function ConjugationLessonTab() {
     (t) => categoryFilter === "All" || t.category === categoryFilter
   );
 
-  const filteredIrregulars = irregularVerbs.filter(
-    (v) =>
-      v.base.toLowerCase().includes(searchVerb.toLowerCase()) ||
-      v.translation.toLowerCase().includes(searchVerb.toLowerCase())
-  );
-
   return (
     <div style={{ color: "#F1F5F9", paddingBottom: "80px" }}>
       {/* En-tête */}
       <div style={{ padding: "20px 0", borderBottom: "1px solid #1E293B", textAlign: "center" }}>
-        <h2 style={{ margin: 0, fontSize: "22px", fontWeight: 700 }}>
-          Conjugaison Anglaise Complète
+        <h2 style={{ margin: 0, fontSize: "22px", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", gap: "8px" }}>
+          <GoClockFill style={{ color: "#38BDF8" }} /> Conjugaison Anglaise Complète
         </h2>
         <p style={{ margin: "8px 0 0", fontSize: "13px", color: "#94A3B8" }}>
           Temps grammaticaux, Voix Active / Passive, Verbes Irréguliers & Phrasal Verbs.
@@ -293,7 +257,7 @@ export default function ConjugationLessonTab() {
               gap: "6px",
             }}
           >
-            <FaBookOpen /> Les Temps & Le Passif
+            <GoClockFill /> Les Temps & Le Passif
           </button>
           <button
             onClick={() => setActiveTab("practice")}

@@ -7,6 +7,7 @@ import ShadowingTab from "./components/ShadowingTab";
 import NumbersTab from "./components/NumbersTab";
 import TimeTab from "./components/TimeTab";
 import ConjugationLessonTab from "./components/ConjugationTab";
+import GrammarRulesTab from "./components/GrammarRulesTab";
 
 const tabs = [
   { id: "words", label: "Mots" },
@@ -15,6 +16,7 @@ const tabs = [
   { id: "Numbers", label: "Nombres" },
   { id: "Time", label: "Heure" },
   { id: "conjugation", label: "Conjugaison" },
+  { id: "grammar", label: "Règles de grammaire" },
   { id: "expressions", label: "Expressions" },
   { id: "shadowing", label: "Shadowing" },
 ];
@@ -63,6 +65,7 @@ export default function App() {
         {activeTab === "Numbers" && <NumbersTab />}
         {activeTab === "Time" && <TimeTab />}
         {activeTab === "conjugation" && <ConjugationLessonTab />}
+        {activeTab === "grammar" && <GrammarRulesTab />}
         {activeTab === "expressions" && <ExpressionsTab />}
         {activeTab === "shadowing" && <ShadowingTab />}
       </main>
