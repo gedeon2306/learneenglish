@@ -5,12 +5,14 @@ import IrregularVerbsTab from "./components/IrregularVerbsTab";
 import ExpressionsTab from "./components/ExpressionsTab";
 import ShadowingTab from "./components/ShadowingTab";
 import NumbersTab from "./components/NumbersTab";
+import TimeTab from "./components/TimeTab";
 
 const tabs = [
   { id: "words", label: "Mots" },
   { id: "irregular", label: "Verbes irréguliers" },
   { id: "phrasal", label: "Phrasal Verbs" },
   { id: "Numbers", label: "Nombres" },
+  { id: "Time", label: "Heure" },
   { id: "expressions", label: "Expressions" },
   { id: "shadowing", label: "Shadowing" },
 ];
@@ -57,6 +59,7 @@ export default function App() {
         {activeTab === "irregular" && <IrregularVerbsTab />}
         {activeTab === "phrasal" && <PhrasalVerbsTab />}
         {activeTab === "Numbers" && <NumbersTab />}
+        {activeTab === "Time" && <TimeTab />}
         {activeTab === "expressions" && <ExpressionsTab />}
         {activeTab === "shadowing" && <ShadowingTab />}
       </main>
