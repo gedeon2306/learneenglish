@@ -91,7 +91,7 @@ const allWords = [
   { en: "also", fr: "aussi / également", cat: "Adverbe" }, { en: "still", fr: "encore / toujours", cat: "Adverbe" },
   { en: "just", fr: "juste / seulement", cat: "Adverbe" }, { en: "even", fr: "même", cat: "Adverbe" },
   { en: "only", fr: "seulement", cat: "Adverbe" }, { en: "very", fr: "très", cat: "Adverbe" },
-  { en: "too", fr: "trop / aussi", cat: "Adverbe" }, { en: "quite", fr: "assez / plutôt", cat: "Adverbe" },
+  { en: "too", fr: "trop / aussi", cat: "Adverbe" }, { en: "quite", fr: "assez / plutôt / exactement", cat: "Adverbe" },
   { en: "really", fr: "vraiment", cat: "Adverbe" }, { en: "almost", fr: "presque", cat: "Adverbe" },
   { en: "again", fr: "encore / à nouveau", cat: "Adverbe" }, { en: "maybe", fr: "peut-être", cat: "Adverbe" },
   { en: "perhaps", fr: "peut-être", cat: "Adverbe" }, { en: "yes", fr: "oui", cat: "Autre" },
@@ -124,7 +124,7 @@ const allWords = [
   { en: "similar", fr: "similaire", cat: "Adjectif" }, { en: "next", fr: "prochain / suivant", cat: "Adjectif" },
   { en: "other", fr: "autre", cat: "Adjectif" }, { en: "more", fr: "plus / davantage", cat: "Adjectif" },
   { en: "less", fr: "moins", cat: "Adjectif" }, { en: "much", fr: "beaucoup (indénombrable)", cat: "Adjectif" },
-  { en: "many", fr: "beaucoup (dénombrable)", cat: "Adjectif" }, { en: "few", fr: "peu (dénombrable)", cat: "Adjectif" },
+  { en: "many", fr: "beaucoup (dénombrable)", cat: "Adjectif" }, { en: "few", fr: "quelques / peu (dénombrable)", cat: "Adjectif" },
   { en: "little", fr: "peu (indénombrable)", cat: "Adjectif" }, { en: "every", fr: "chaque / tout", cat: "Adjectif" },
   { en: "all", fr: "tout / tous", cat: "Adjectif" }, { en: "some", fr: "quelques / un peu de", cat: "Adjectif" },
   { en: "any", fr: "n'importe quel / des", cat: "Adjectif" }, { en: "each", fr: "chaque", cat: "Adjectif" },
@@ -427,7 +427,7 @@ const allWords = [
   { en: "can", fr: "pouvoir (capacité)", cat: "Modal" }, { en: "could", fr: "pourrait / pouvait", cat: "Modal" },
   { en: "will", fr: "futur / vouloir bien", cat: "Modal" }, { en: "would", fr: "conditionnel", cat: "Modal" },
   { en: "should", fr: "devoir (conseil)", cat: "Modal" }, { en: "must", fr: "devoir (obligation)", cat: "Modal" },
-  { en: "may", fr: "avoir la permission / peut-être", cat: "Modal" },
+  { en: "may", fr: "avoir la permission / avoir la possibilité de / peut", cat: "Modal" },
   { en: "might", fr: "pourrait (éventualité)", cat: "Modal" },
   { en: "have to", fr: "devoir (obligation externe)", cat: "Expression" },
   { en: "used to", fr: "avait l'habitude de", cat: "Expression" },
@@ -569,16 +569,8 @@ const allWords = [
   { en: "confirm", fr: "confirmer", cat: "Verbe" }, { en: "check", fr: "vérifier / contrôler", cat: "Verbe" },
   { en: "review", fr: "examiner / réviser", cat: "Verbe" }, { en: "solve", fr: "résoudre", cat: "Verbe" },
   { en: "handle", fr: "gérer / manier", cat: "Verbe" },
-  { en: "deal with", fr: "faire face à / traiter", cat: "Expression" },
-  { en: "depend on", fr: "dépendre de", cat: "Expression" },
-  { en: "look for", fr: "chercher", cat: "Expression" },
-  { en: "look at", fr: "regarder", cat: "Expression" },
-  { en: "think about", fr: "penser à / réfléchir à", cat: "Expression" },
-  { en: "talk about", fr: "parler de", cat: "Expression" },
-  { en: "work on", fr: "travailler sur", cat: "Expression" },
-  { en: "come back", fr: "revenir / retourner", cat: "Expression" },
-  { en: "give up", fr: "abandonner / renoncer", cat: "Expression" },
-  { en: "find out", fr: "découvrir / apprendre", cat: "Expression" },
+  // les expressions suivantes ont été retirées : deal with, depend on, look for, look at, think about, talk about, work on, come back, give up, find out
+  // elles sont maintenant dans le fichier PhrasalVerbsTab
 ];
 
 const WORDS_PER_LOT = 33;
