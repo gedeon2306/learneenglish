@@ -64,6 +64,7 @@ const phrasalVerbs: PhrasalVerb[] = [
   { group: "LOOK/TAKE", phrase: "Take off", translation: "Décoller (avion) OU Enlever (un vêtement)", example: "The plane takes off at noon. / Take off your shoes.", exampleFrench: "L'avion décolle à midi. / Enlève tes chaussures." },
   { group: "LOOK/TAKE", phrase: "Take over", translation: "Prendre le contrôle / Prendre la relève", example: "The manager will take over next week.", exampleFrench: "Le directeur prendra la relève la semaine prochaine." },
   { group: "LOOK/TAKE", phrase: "Take up", translation: "Se mettre à (un sport, un loisir)", example: "I want to take up photography.", exampleFrench: "Je veux me mettre à la photographie." },
+  { group: "LOOK/TAKE", phrase: "Look like", translation: "Ressembler à", example: "She looks like her mother.", exampleFrench: "Elle ressemble à sa mère." },
 
   // ========== PUT / TURN ==========
   { group: "PUT/TURN", phrase: "Put off", translation: "Reporter / Remettre à plus tard", example: "Never put off until tomorrow what you can do today.", exampleFrench: "Ne remets jamais à demain ce que tu peux faire aujourd'hui." },
@@ -95,9 +96,10 @@ const phrasalVerbs: PhrasalVerb[] = [
   { group: "SET/FALL", phrase: "Set off", translation: "Prendre la route / Se mettre en route", example: "We need to set off early tomorrow.", exampleFrench: "Nous devons nous mettre en route tôt demain." },
   { group: "SET/FALL", phrase: "Set up", translation: "Installer / Configurer / Créer (une entreprise)", example: "She wants to set up her own business.", exampleFrench: "Elle veut créer sa propre entreprise." },
 
-  // ========== AUTRES (nouveaux ajouts + existants réorganisés) ==========
+  // ========== AUTRES ==========
   { group: "AUTRES", phrase: "Be sick of", translation: "En avoir marre / En avoir plein le dos", example: "I am sick of this rainy weather.", exampleFrench: "J'en ai marre de ce temps pluvieux." },
   { group: "AUTRES", phrase: "Be sick on", translation: "Vomir sur (quelqu'un ou quelque chose)", example: "The baby was sick on my new shirt.", exampleFrench: "Le bébé a vomi sur ma nouvelle chemise." },
+  { group: "AUTRES", phrase: "Wake up", translation: "Se réveiller", example: "I wake up at 7 AM every day.", exampleFrench: "Je me réveille à 7 heures tous les jours." },
   { group: "AUTRES", phrase: "Blow up", translation: "Exploser / Faire sauter OU Gonfler", example: "The bomb blew up. / Blow up the balloons.", exampleFrench: "La bombe a explosé. / Gonfle les ballons." },
   { group: "AUTRES", phrase: "Break in", translation: "Entrer par effraction / Faire une pause", example: "Someone tried to break in last night.", exampleFrench: "Quelqu'un a essayé d'entrer par effraction la nuit dernière." },
   { group: "AUTRES", phrase: "Cheer up", translation: "Redonner le sourire / Reprendre courage", example: "Cheer up! Things will get better.", exampleFrench: "Courage ! Ça va s'arranger." },
@@ -120,6 +122,22 @@ const phrasalVerbs: PhrasalVerb[] = [
   { group: "AUTRES", phrase: "Turn down", translation: "Refuser / Baisser (le volume)", example: "She turned down the job offer.", exampleFrench: "Elle a refusé l'offre d'emploi." },
   { group: "AUTRES", phrase: "Work on", translation: "Travailler sur", example: "I'm working on a new design.", exampleFrench: "Je travaille sur un nouveau design." },
   { group: "AUTRES", phrase: "Work out", translation: "Faire du sport OU Trouver une solution / Fonctionner", example: "I work out three times a week. / Everything will work out.", exampleFrench: "Je fais du sport trois fois par semaine. / Tout va s'arranger." },
+  { group: "AUTRES", phrase: "Be into", translation: "Être intéressé par / apprécier", example: "I'm really into jazz music.", exampleFrench: "Je suis vraiment fan de jazz." },
+  { group: "AUTRES", phrase: "Comply with", translation: "Se conformer à / respecter", example: "You must comply with the rules.", exampleFrench: "Tu dois te conformer aux règles." },
+  { group: "AUTRES", phrase: "Hang out", translation: "Traîner / passer du temps avec", example: "We hung out at the mall yesterday.", exampleFrench: "Nous avons traîné au centre commercial hier." },
+  { group: "AUTRES", phrase: "Make up (one's mind)", translation: "Se décider / faire son choix", example: "I can't make up my mind about the color.", exampleFrench: "Je n'arrive pas à me décider pour la couleur." },
+  { group: "AUTRES", phrase: "Move in", translation: "Emménager", example: "We moved in last week.", exampleFrench: "Nous avons emménagé la semaine dernière." },
+  { group: "AUTRES", phrase: "Move out", translation: "Déménager / quitter un logement", example: "They moved out of the city.", exampleFrench: "Ils ont déménagé hors de la ville." },
+  { group: "AUTRES", phrase: "Slow down", translation: "Ralentir", example: "Slow down, you're driving too fast.", exampleFrench: "Ralentis, tu conduis trop vite." },
+  { group: "AUTRES", phrase: "Hear about", translation: "Entendre parler de", example: "Have you heard about the new project?", exampleFrench: "As-tu entendu parler du nouveau projet ?" },
+  { group: "AUTRES", phrase: "Clear up", translation: "Éclaircir / résoudre (un malentendu)", example: "Let's clear up this misunderstanding.", exampleFrench: "Éclaircissons ce malentendu." },
+  { group: "AUTRES", phrase: "Figure out", translation: "Comprendre / trouver une solution", example: "I need to figure out how to fix this.", exampleFrench: "Je dois trouver comment réparer ça." },
+  { group: "AUTRES", phrase: "Speed up", translation: "Accélérer", example: "We need to speed up the process.", exampleFrench: "Nous devons accélérer le processus." },
+  { group: "AUTRES", phrase: "Roll back", translation: "Annuler / revenir en arrière (mise à jour)", example: "They rolled back the software update.", exampleFrench: "Ils ont annulé la mise à jour du logiciel." },
+  { group: "AUTRES", phrase: "Dive in / into", translation: "Plonger dans / se lancer dans", example: "Let's dive into the details.", exampleFrench: "Plongeons dans les détails." },
+  { group: "AUTRES", phrase: "Go through", translation: "Parcourir / traverser (une épreuve)", example: "We went through the report together.", exampleFrench: "Nous avons parcouru le rapport ensemble." },
+  { group: "AUTRES", phrase: "Skim through", translation: "Parcourir rapidement / survoler", example: "I skimmed through the article.", exampleFrench: "J'ai survolé l'article." },
+  { group: "AUTRES", phrase: "Reach out", translation: "Contacter / tendre la main", example: "Reach out to me if you need help.", exampleFrench: "Contacte-moi si tu as besoin d'aide." },
 ];
 
 export default function PhrasalVerbsTab() {
