@@ -12,6 +12,14 @@ export const cleanSpeechText = (text: string, lang: string = "en-US") => {
     normalized = "eye";
   }
 
+  if (lang === "en-US" && normalized === "-teen (ex: Fourteen)") {
+    normalized = "Fourteen";
+  }
+
+  if (lang === "en-US" && normalized === "-ty (ex: Twenty, Thirty)") {
+    normalized = "Thirty";
+  }
+
   normalized = normalized.replace(/\s*\([^)]*\)\s*/g, " ");
   normalized = normalized.replace(/\s*\/\s*/g, lang === "fr-FR" ? " ou " : " or ");
   normalized = normalized.replace(/\bou\b/gi, lang === "fr-FR" ? "où" : "or");

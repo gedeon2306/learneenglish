@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { FaAssistiveListeningSystems } from "react-icons/fa";
 
 type ShadowingLevel = {
   id: number;
@@ -150,9 +151,9 @@ export default function ShadowingTab() {
       <div style={{ padding: "20px 0", borderBottom: "1px solid #1E293B" }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: "8px" }}>
           <div>
-            <h2 style={{ margin: 0, fontSize: "22px", fontWeight: 700, color: "#F1F5F9" }}>
-              Shadowing en 10 niveaux
-            </h2>
+              <h2 style={{ margin: 0, fontSize: "22px", fontWeight: 700, color: "#F1F5F9" }}>
+                <FaAssistiveListeningSystems style={{ color: "#38BDF8" }} /> Shadowing en 10 niveaux
+              </h2>
             <p style={{ margin: "8px 0 0", fontSize: "13px", color: "#94A3B8" }}>
               Pratique l'écoute, la compréhension, l'expression orale et l'articulation en anglais.
             </p>

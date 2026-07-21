@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { FaSearch, FaListUl, FaThLarge, FaCheck, FaRegCircle, FaVolumeUp, FaArrowLeft, FaArrowRight, FaTimes } from "react-icons/fa";
+import { RiSpeakAiLine } from "react-icons/ri";
 import { loadFromStorage, saveToStorage, STORAGE_KEYS } from "../utils/storage";
 import { speakSequence, stopSpeech } from "../utils/speech";
 type Expression = {
@@ -40,7 +41,49 @@ const expressions: Expression[] = [
   { group: "EVERYDAY", expression: "Are you kidding me?", meaning: "Tu plaisantes? / Tu te moques de moi?", example: "You won the lottery? Are you kidding me?", exampleFrench: "Tu as gagné à la loterie? Sans blague?" },
   { group: "EVERYDAY", expression: "So far, so good", meaning: "Jusqu'ici, tout va bien", example: "How is your new job? - So far, so good.", exampleFrench: "Comment va ton nouveau travail? - Jusqu'ici, tout va bien." },
   { group: "EVERYDAY", expression: "No worries", meaning: "Pas de problème / Pas de soucis", example: "Thanks for the ride! - No worries, mate.", exampleFrench: "Merci pour la balade! - Pas de souci, mon pote." },
-
+  { group: "EVERYDAY", expression: "Same thing", meaning: "La même chose", example: "We ordered the same thing.", exampleFrench: "Nous avons commandé la même chose." },
+  { group: "EVERYDAY", expression: "Something else", meaning: "Autre chose", example: "I'd like something else.", exampleFrench: "Je voudrais autre chose." },
+  { group: "EVERYDAY", expression: "What's next?", meaning: "Et ensuite ?", example: "What's next on the agenda?", exampleFrench: "Quelle est la suite au programme ?" },
+  { group: "EVERYDAY", expression: "It is close", meaning: "C'est proche", example: "The station is close.", exampleFrench: "La gare est proche." },
+  { group: "EVERYDAY", expression: "It is not far", meaning: "Ce n'est pas loin", example: "The beach is not far.", exampleFrench: "La plage n'est pas loin." },
+  { group: "EVERYDAY", expression: "It's a pleasure to meet you", meaning: "Enchanté(e) de vous rencontrer", example: "Hello, it's a pleasure to meet you.", exampleFrench: "Bonjour, enchanté de vous rencontrer." },
+  { group: "EVERYDAY", expression: "Look who's here!", meaning: "Tiens, regarde qui est là !", example: "Look who's here! It's John!", exampleFrench: "Regarde qui est là ! C'est John !" },
+  { group: "EVERYDAY", expression: "Being kind", meaning: "Être gentil", example: "Being kind costs nothing.", exampleFrench: "Être gentil ne coûte rien." },
+  { group: "EVERYDAY", expression: "That's right", meaning: "C'est exact / c'est ça", example: "You're from London? That's right.", exampleFrench: "Vous êtes de Londres ? C'est ça." },
+  { group: "EVERYDAY", expression: "I hope you're well", meaning: "J'espère que vous allez bien", example: "I hope you're well, I've missed you.", exampleFrench: "J'espère que tu vas bien, tu m'as manqué." },
+  { group: "EVERYDAY", expression: "All of you", meaning: "Vous tous", example: "I want to thank all of you.", exampleFrench: "Je veux vous remercier tous." },
+  { group: "EVERYDAY", expression: "How about...?", meaning: "Que dirais-tu de ... ? / Et si ... ?", example: "How about going to the cinema?", exampleFrench: "Et si on allait au cinéma ?" },
+  { group: "EVERYDAY", expression: "What kind of...?", meaning: "Quel genre de ... ?", example: "What kind of music do you like?", exampleFrench: "Quel genre de musique aimes-tu ?" },
+  { group: "EVERYDAY", expression: "Go-to guy", meaning: "L'homme de la situation / la personne ressource", example: "He's my go-to guy for IT issues.", exampleFrench: "C'est mon homme de confiance pour les problèmes informatiques." },
+  { group: "EVERYDAY", expression: "To meet someone's needs", meaning: "Répondre aux besoins de quelqu'un", example: "This software meets our needs perfectly.", exampleFrench: "Ce logiciel répond parfaitement à nos besoins." },
+  { group: "EVERYDAY", expression: "Make sure", meaning: "S'assurer / vérifier", example: "Make sure you lock the door.", exampleFrench: "Assure-toi de verrouiller la porte." },
+  { group: "EVERYDAY", expression: "Most of the time", meaning: "La plupart du temps", example: "Most of the time, I walk to work.", exampleFrench: "La plupart du temps, je vais au travail à pied." },
+  { group: "EVERYDAY", expression: "Get ready", meaning: "Se préparer", example: "We need to get ready for the meeting.", exampleFrench: "Nous devons nous préparer pour la réunion." },
+  { group: "EVERYDAY", expression: "Get dressed", meaning: "S'habiller", example: "I'll get dressed and meet you downstairs.", exampleFrench: "Je m'habille et je te rejoins en bas." },
+  { group: "EVERYDAY", expression: "Sounds like", meaning: "On dirait / ça a l'air", example: "Sounds like a great idea!", exampleFrench: "On dirait une bonne idée !" },
+  { group: "EVERYDAY", expression: "It seems like", meaning: "On dirait que / il semble que", example: "It seems like it's going to rain.", exampleFrench: "On dirait qu'il va pleuvoir." },
+  { group: "EVERYDAY", expression: "I feel sleepy", meaning: "J'ai sommeil", example: "I feel sleepy, I should go to bed.", exampleFrench: "J'ai sommeil, je devrais aller me coucher." },
+  { group: "EVERYDAY", expression: "Feel groggy", meaning: "Se sentir faible / vaseux", example: "I feel groggy after that nap.", exampleFrench: "Je me sens vaseux après cette sieste." },
+  { group: "EVERYDAY", expression: "I feel like", meaning: "J'ai l'impression que / j'ai envie de", example: "I feel like it's too late.", exampleFrench: "J'ai l'impression qu'il est trop tard." },
+  { group: "EVERYDAY", expression: "Get home", meaning: "Rentrer à la maison", example: "I'll get home around 6 PM.", exampleFrench: "Je rentrerai à la maison vers 18h." },
+  { group: "EVERYDAY", expression: "Take a nap", meaning: "Faire une sieste", example: "I'm going to take a short nap.", exampleFrench: "Je vais faire une petite sieste." },
+  { group: "EVERYDAY", expression: "That's good to hear", meaning: "C'est une bonne nouvelle", example: "You got the job? That's good to hear!", exampleFrench: "Tu as eu le poste ? C'est une bonne nouvelle !" },
+  { group: "EVERYDAY", expression: "I hope", meaning: "J'espère", example: "I hope you're okay.", exampleFrench: "J'espère que tu vas bien." },
+  { group: "EVERYDAY", expression: "I hope so", meaning: "Je l'espère", example: "Will he come? I hope so.", exampleFrench: "Viendra-t-il ? Je l'espère." },
+  { group: "EVERYDAY", expression: "Don't worry", meaning: "Ne t'inquiète pas", example: "Don't worry, everything is under control.", exampleFrench: "Ne t'inquiète pas, tout est sous contrôle." },
+  { group: "EVERYDAY", expression: "Not at all", meaning: "Pas du tout", example: "Are you tired? Not at all.", exampleFrench: "Es-tu fatigué ? Pas du tout." },
+  { group: "EVERYDAY", expression: "Not really", meaning: "Pas vraiment", example: "Do you like it? Not really.", exampleFrench: "Tu aimes ? Pas vraiment." },
+  { group: "EVERYDAY", expression: "Not right away", meaning: "Pas tout de suite", example: "I'll do it, but not right away.", exampleFrench: "Je le ferai, mais pas tout de suite." },
+  { group: "EVERYDAY", expression: "For a while", meaning: "Pendant un moment", example: "I've been waiting for a while.", exampleFrench: "J'attends depuis un moment." },
+  { group: "EVERYDAY", expression: "It's been a while since", meaning: "Ça fait un moment que", example: "It's been a while since we met.", exampleFrench: "Ça fait un moment qu'on s'est vus." },
+  { group: "EVERYDAY", expression: "Now that I think about it", meaning: "Maintenant que j'y pense", example: "Now that I think about it, you're right.", exampleFrench: "Maintenant que j'y pense, tu as raison." },
+  { group: "EVERYDAY", expression: "I'll let you know", meaning: "Je vous tiendrai au courant", example: "I'll let you know the decision tomorrow.", exampleFrench: "Je vous tiendrai au courant de la décision demain." },
+  { group: "EVERYDAY", expression: "What's wrong?", meaning: "Qu'est-ce qui ne va pas ?", example: "What's wrong? You look sad.", exampleFrench: "Qu'est-ce qui ne va pas ? Tu as l'air triste." },
+  { group: "EVERYDAY", expression: "Which one to choose", meaning: "Lequel choisir", example: "There are so many options, which one to choose?", exampleFrench: "Il y a tant d'options, lequel choisir ?" },
+  { group: "EVERYDAY", expression: "Some of these", meaning: "Certains de ceux-ci", example: "Some of these books are interesting.", exampleFrench: "Certains de ces livres sont intéressants." },
+  { group: "EVERYDAY", expression: "First things first", meaning: "Avant toute chose", example: "First things first, let's have breakfast.", exampleFrench: "Avant toute chose, prenons le petit-déjeuner." },
+  { group: "EVERYDAY", expression: "Got it", meaning: "J'ai compris / c'est bon", example: "Can you do that? Got it.", exampleFrench: "Peux-tu faire ça ? Compris." },
+  
   // PART 2: REACTIONS
   { group: "REACTIONS", expression: "My bad", meaning: "C'est ma faute / Au temps pour moi", example: "I forgot to buy milk. My bad!", exampleFrench: "J'ai oublié d'acheter du lait. C'est de ma faute!" },
   { group: "REACTIONS", expression: "Fingers crossed!", meaning: "On croise les doigts!", example: "Your exam is tomorrow? Fingers crossed!", exampleFrench: "Ton examen est demain? On croise les doigts!" },
@@ -62,7 +105,24 @@ const expressions: Expression[] = [
   { group: "REACTIONS", expression: "Point taken", meaning: "J'ai compris l'argument", example: "Okay, point taken, I'll stop arguing.", exampleFrench: "D'accord, j'ai compris, j'arrête de discuter." },
   { group: "REACTIONS", expression: "I'm all ears", meaning: "Je suis tout ouïe / Je t'écoute", example: "Tell me your secret, I'm all ears.", exampleFrench: "Raconte-moi ton secret, je t'écoute." },
   { group: "REACTIONS", expression: "Count me in!", meaning: "Compte sur moi! / J'en suis!", example: "Who wants to go to the beach? - Count me in!", exampleFrench: "Qui veut aller à la plage? - Je suis partant!" },
-
+  { group: "REACTIONS", expression: "Strongly agree", meaning: "Tout à fait d'accord", example: "I strongly agree with your proposal.", exampleFrench: "Je suis tout à fait d'accord avec votre proposition." },
+  { group: "REACTIONS", expression: "Sounds great!", meaning: "Ça a l'air super !", example: "Let's meet at 8? Sounds great!", exampleFrench: "On se retrouve à 8h ? Ça a l'air super !" },
+  { group: "REACTIONS", expression: "I totally get that", meaning: "Je comprends parfaitement", example: "I totally get that you're busy.", exampleFrench: "Je comprends parfaitement que tu sois occupé." },
+  { group: "REACTIONS", expression: "It gets to me", meaning: "Ça m'arrive / ça me touche", example: "Sometimes this job gets to me.", exampleFrench: "Parfois, ce travail m'atteint." },
+  { group: "REACTIONS", expression: "I can't help... + v-ing", meaning: "Je ne peux m'empêcher de...", example: "I can't help laughing when I see him.", exampleFrench: "Je ne peux pas m'empêcher de rire quand je le vois." },
+  { group: "REACTIONS", expression: "I've had enough / I'm fed up", meaning: "J'en ai assez / j'en ai marre", example: "I've had enough of your excuses!", exampleFrench: "J'en ai assez de tes excuses !" },
+  { group: "REACTIONS", expression: "Beg to differ", meaning: "Je ne suis pas d'accord (poliment)", example: "I beg to differ with your opinion.", exampleFrench: "Je ne suis pas d'accord avec votre opinion." },
+  { group: "REACTIONS", expression: "Give it a go", meaning: "Essayer (pour la première fois)", example: "Why not give it a go? You might like it.", exampleFrench: "Pourquoi ne pas essayer ? Tu pourrais aimer." },
+  { group: "REACTIONS", expression: "Give it a shot", meaning: "Essayer / tenter sa chance", example: "I'll give it a shot, but I'm not sure.", exampleFrench: "Je vais essayer, mais je ne suis pas sûr." },
+  { group: "REACTIONS", expression: "No way!", meaning: "Certainement pas ! / Pas question !", example: "No way! I'm not going there.", exampleFrench: "Pas question ! Je n'y vais pas." },
+  { group: "REACTIONS", expression: "Fair enough", meaning: "D'accord / c'est entendu", example: "If you can't come, fair enough.", exampleFrench: "Si tu ne peux pas venir, d'accord." },
+  { group: "REACTIONS", expression: "Tell me about it!", meaning: "Tu m'en diras tant !", example: "It's so cold today. - Tell me about it!", exampleFrench: "Il fait si froid aujourd'hui. - Tu me l'dis !" },
+  { group: "REACTIONS", expression: "You can say that again!", meaning: "Tu l'as dit !", example: "This movie is boring. - You can say that again!", exampleFrench: "Ce film est ennuyeux. - Tu l'as dit !" },
+  { group: "REACTIONS", expression: "Point taken", meaning: "J'ai compris / bon argument", example: "Point taken, I'll change my approach.", exampleFrench: "Bon argument, je vais changer d'approche." },
+  { group: "REACTIONS", expression: "What's your take?", meaning: "Quel est ton avis ?", example: "What's your take on the new policy?", exampleFrench: "Quel est ton avis sur la nouvelle politique ?" },
+  { group: "REACTIONS", expression: "Can you tell me about...?", meaning: "Peux-tu me parler de... ?", example: "Can you tell me about your experience?", exampleFrench: "Peux-tu me parler de ton expérience ?" },
+  { group: "REACTIONS", expression: "I'm on it", meaning: "Je m'en occupe / je suis sur le coup", example: "Don't worry, I'm on it right now.", exampleFrench: "Ne t'inquiète pas, je m'en occupe tout de suite." },
+  
   // PART 3: IDIOMS
   { group: "IDIOMS", expression: "A piece of cake", meaning: "Un jeu d'enfant / C'est simple", example: "Don't worry, the exam was a piece of cake.", exampleFrench: "Ne t'inquiète pas, l'examen était facile." },
   { group: "IDIOMS", expression: "Once in a blue moon", meaning: "Très rarement / Tous les trente du mois", example: "He goes to the gym once in a blue moon.", exampleFrench: "Il va à la gym très rarement." },
@@ -84,6 +144,31 @@ const expressions: Expression[] = [
   { group: "IDIOMS", expression: "Through thick and thin", meaning: "Contre vents et marées", example: "Best friends stay together through thick and thin.", exampleFrench: "Les meilleurs amis restent ensemble quoi qu'il arrive." },
   { group: "IDIOMS", expression: "Cry over spilled milk", meaning: "Regretter le passé / Pleurer sur ce qui est fait", example: "It's broken now. Don't cry over spilled milk.", exampleFrench: "C'est cassé maintenant. N'aie pas de regrets." },
   { group: "IDIOMS", expression: "Catch someone red-handed", meaning: "Prendre quelqu'un la main dans le sac", example: "The security guard caught the thief red-handed.", exampleFrench: "Le gardien de sécurité a attrapé le voleur en flagrant délit." },
+  { group: "IDIOMS", expression: "Have a blast", meaning: "S'éclater / s'amuser énormément", example: "We had a blast at the party.", exampleFrench: "On s'est éclatés à la fête." },
+  { group: "IDIOMS", expression: "It makes my day", meaning: "Ça me fait très plaisir / ça fait ma journée", example: "Your kind words make my day.", exampleFrench: "Tes paroles gentilles me font très plaisir." },
+  { group: "IDIOMS", expression: "Against the clock", meaning: "Contre la montre", example: "We're working against the clock.", exampleFrench: "On travaille contre la montre." },
+  { group: "IDIOMS", expression: "Keep up that pace", meaning: "Garder ce rythme", example: "Keep up that pace, you're doing well.", exampleFrench: "Garde ce rythme, tu t'en sors bien." },
+  { group: "IDIOMS", expression: "Stay on track", meaning: "Rester sur la bonne voie", example: "We need to stay on track with the plan.", exampleFrench: "Nous devons rester sur la bonne voie avec le plan." },
+  { group: "IDIOMS", expression: "Go as expected", meaning: "Se dérouler comme prévu", example: "Everything went as expected.", exampleFrench: "Tout s'est déroulé comme prévu." },
+  { group: "IDIOMS", expression: "Safety rules", meaning: "Règles de sécurité", example: "Safety rules must be followed.", exampleFrench: "Les règles de sécurité doivent être respectées." },
+  { group: "IDIOMS", expression: "Stay fit", meaning: "Rester en forme", example: "I exercise every day to stay fit.", exampleFrench: "Je fais du sport tous les jours pour rester en forme." },
+  { group: "IDIOMS", expression: "It's all about", meaning: "Tout est question de / il s'agit de", example: "It's all about communication.", exampleFrench: "Tout est question de communication." },
+  { group: "IDIOMS", expression: "Plan ahead", meaning: "Planifier à l'avance", example: "We should plan ahead to avoid problems.", exampleFrench: "Nous devrions planifier à l'avance pour éviter les problèmes." },
+  { group: "IDIOMS", expression: "Not too far away", meaning: "Pas trop loin", example: "The park is not too far away.", exampleFrench: "Le parc n'est pas trop loin." },
+  { group: "IDIOMS", expression: "Make time for", meaning: "Prendre le temps pour", example: "Make time for your hobbies.", exampleFrench: "Prends du temps pour tes loisirs." },
+  { group: "IDIOMS", expression: "To grow to appreciate", meaning: "Apprendre à apprécier", example: "I've grown to appreciate classical music.", exampleFrench: "J'ai appris à apprécier la musique classique." },
+  { group: "IDIOMS", expression: "Spare time", meaning: "Temps libre", example: "In my spare time, I read.", exampleFrench: "Pendant mon temps libre, je lis." },
+  { group: "IDIOMS", expression: "Keep in mind", meaning: "Garder à l'esprit", example: "Keep in mind the deadline is Friday.", exampleFrench: "Garde à l'esprit que la date limite est vendredi." },
+  { group: "IDIOMS", expression: "It takes", meaning: "Il faut / ça prend", example: "It takes time to learn a language.", exampleFrench: "Il faut du temps pour apprendre une langue." },
+  { group: "IDIOMS", expression: "To grab attention", meaning: "Capter l'attention", example: "The ad is designed to grab attention.", exampleFrench: "La pub est conçue pour capter l'attention." },
+  { group: "IDIOMS", expression: "To be faced with", meaning: "Être confronté à", example: "We are faced with a difficult choice.", exampleFrench: "Nous sommes confrontés à un choix difficile." },
+  { group: "IDIOMS", expression: "To be thrilled", meaning: "Être ravi / enthousiaste", example: "I'm thrilled to meet you.", exampleFrench: "Je suis ravi de vous rencontrer." },
+  { group: "IDIOMS", expression: "To be eager", meaning: "Être impatient / désireux", example: "I'm eager to start the project.", exampleFrench: "Je suis impatient de commencer le projet." },
+  { group: "IDIOMS", expression: "To be all set", meaning: "Tout est prêt", example: "We're all set for the presentation.", exampleFrench: "Nous sommes prêts pour la présentation." },
+  { group: "IDIOMS", expression: "Need a hand", meaning: "Avoir besoin d'aide", example: "Do you need a hand with that?", exampleFrench: "Tu as besoin d'aide pour ça ?" },
+  { group: "IDIOMS", expression: "Having a hard time", meaning: "Avoir du mal", example: "I'm having a hard time understanding this.", exampleFrench: "J'ai du mal à comprendre ça." },
+  { group: "IDIOMS", expression: "Having a good time", meaning: "Passer un bon moment", example: "We're having a good time at the beach.", exampleFrench: "On passe un bon moment à la plage." },
+  { group: "IDIOMS", expression: "Manage to / succeed in", meaning: "Arriver à faire / réussir à faire", example: "I managed to finish on time.", exampleFrench: "J'ai réussi à finir à l'heure." },
 
   // PART 4: FEELINGS
   { group: "FEELINGS", expression: "I'm on cloud nine", meaning: "Je suis aux anges / Sur un petit nuage", example: "Since she accepted my proposal, I'm on cloud nine.", exampleFrench: "Depuis qu'elle a accepté ma demande, je suis aux anges." },
@@ -106,6 +191,18 @@ const expressions: Expression[] = [
   { group: "FEELINGS", expression: "Lose one's temper", meaning: "Perdre son sang-froid / S'emporter", example: "He lost his temper when he heard the bad news.", exampleFrench: "Il a perdu son sang-froid en apprenant la mauvaise nouvelle." },
   { group: "FEELINGS", expression: "At the end of the day", meaning: "En fin de compte / Au bout du compte", example: "At the end of the day, it's your choice.", exampleFrench: "Au bout du compte, c'est ton choix." },
   { group: "FEELINGS", expression: "Down to earth", meaning: "Avoir les pieds sur terre / Être réaliste", example: "Despite being a famous actor, he is very down to earth.", exampleFrench: "Malgré sa célébrité, il a les pieds sur terre." },
+  { group: "FEELINGS", expression: "It happens to all of us", meaning: "Ça nous arrive à tous", example: "Don't worry, it happens to all of us.", exampleFrench: "Ne t'inquiète pas, ça nous arrive à tous." },
+  { group: "FEELINGS", expression: "I'm starving", meaning: "Je meurs de faim", example: "I'm starving, let's eat.", exampleFrench: "Je meurs de faim, mangeons." },
+  { group: "FEELINGS", expression: "I Could use...", meaning: "J'aimerais bien / j'aurais besoin de", example: "I could use a coffee right now.", exampleFrench: "J'aimerais bien un café maintenant." },
+  { group: "FEELINGS", expression: "I'm looking for", meaning: "Je cherche", example: "I'm looking for my glasses.", exampleFrench: "Je cherche mes lunettes." },
+  { group: "FEELINGS", expression: "I'm looking forward to it", meaning: "J'ai hâte", example: "I'm looking forward to the holidays.", exampleFrench: "J'ai hâte des vacances." },
+  { group: "FEELINGS", expression: "I've always wondered", meaning: "Je me suis toujours demandé", example: "I've always wondered about that.", exampleFrench: "Je me suis toujours demandé à ce sujet." },
+  { group: "FEELINGS", expression: "Being kind", meaning: "Être gentil", example: "Being kind is important.", exampleFrench: "Être gentil est important." },
+  { group: "FEELINGS", expression: "It gets to me", meaning: "Ça m'affecte / ça m'arrive", example: "Sometimes the noise gets to me.", exampleFrench: "Parfois le bruit m'affecte." },
+  { group: "FEELINGS", expression: "Look a bit down", meaning: "Avoir l'air un peu abattu", example: "He looks a bit down today.", exampleFrench: "Il a l'air un peu abattu aujourd'hui." },
+  { group: "FEELINGS", expression: "To be related to", meaning: "Être lié à", example: "Stress is often related to work.", exampleFrench: "Le stress est souvent lié au travail." },
+  { group: "FEELINGS", expression: "To struggle with", meaning: "Lutter contre / avoir du mal avec", example: "I struggle with math.", exampleFrench: "J'ai du mal avec les maths." },
+  { group: "FEELINGS", expression: "I'm kinda (kind of) tired", meaning: "Je suis un peu fatigué", example: "I'm kinda tired, I should sleep.", exampleFrench: "Je suis un peu fatigué, je devrais dormir." },
 
   // PART 5: PRACTICAL
   { group: "PRACTICAL", expression: "Long story short", meaning: "Pour faire court", example: "Long story short, we bought the house.", exampleFrench: "Pour faire court, on a acheté la maison." },
@@ -190,11 +287,11 @@ export default function ExpressionsTab() {
       <div style={{ padding: "20px 0", borderBottom: "1px solid #1E293B" }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: "8px" }}>
           <div>
-            <h2 style={{ margin: 0, fontSize: "22px", fontWeight: 700, color: "#F1F5F9" }}>
-              Expressions Idiomatiques
+            <h2 style={{ margin: 0, fontSize: "22px", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", gap: "8px" }}>
+              <RiSpeakAiLine style={{ color: "#38BDF8" }} /> Expressions Idiomatiques
             </h2>
             <p style={{ margin: "8px 0 0", fontSize: "13px", color: "#94A3B8" }}>
-              Plus de 100 expressions courantes pour parler comme un natif.
+              Une grande liste d'expressions courantes pour parler comme un natif.
             </p>
           </div>
           <div style={{ width: "100%", maxWidth: "640px" }}>
