@@ -222,7 +222,7 @@ export default function NumbersTab() {
             <div
               style={{
                 background: "#0F172A",
-                borderLeft: "4px solid #38BDF8",
+                // borderLeft: "4px solid #38BDF8",
                 padding: "10px 12px",
                 borderRadius: "4px",
                 marginBottom: "14px",

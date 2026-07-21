@@ -264,7 +264,7 @@ export default function TimeTab() {
           <div
             style={{
               background: "#0F172A",
-              borderLeft: "4px solid #38BDF8",
+              // borderLeft: "4px solid #38BDF8",
               padding: "12px 16px",
               borderRadius: "4px",
               fontSize: "13px",
