@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { FaSearch, FaListUl, FaThLarge, FaCheck, FaRegCircle, FaTimes, FaArrowLeft, FaArrowRight, FaVolumeUp } from "react-icons/fa";
+import { SiReverbnation } from "react-icons/si";
 import { loadFromStorage, saveToStorage, STORAGE_KEYS } from "../utils/storage";
 import { speakSequence, stopSpeech } from "../utils/speech";
 
@@ -61,10 +62,10 @@ const phrasalVerbs: PhrasalVerb[] = [
   { group: "LOOK/TAKE", phrase: "Look into", translation: "Examiner / Étudier", example: "I'll look into the problem tomorrow.", exampleFrench: "J'examinerai le problème demain." },
   { group: "LOOK/TAKE", phrase: "Look out", translation: "Faire attention", example: "Look out for the cars.", exampleFrench: "Fais attention aux voitures." },
   { group: "LOOK/TAKE", phrase: "Look up", translation: "Chercher (dans un dictionnaire/sur le web)", example: "Look up the word if you don't know it.", exampleFrench: "Cherche le mot si tu ne le connais pas." },
+  { group: "LOOK/TAKE", phrase: "Look like", translation: "Ressembler à", example: "She looks like her mother.", exampleFrench: "Elle ressemble à sa mère." },
   { group: "LOOK/TAKE", phrase: "Take off", translation: "Décoller (avion) OU Enlever (un vêtement)", example: "The plane takes off at noon. / Take off your shoes.", exampleFrench: "L'avion décolle à midi. / Enlève tes chaussures." },
   { group: "LOOK/TAKE", phrase: "Take over", translation: "Prendre le contrôle / Prendre la relève", example: "The manager will take over next week.", exampleFrench: "Le directeur prendra la relève la semaine prochaine." },
   { group: "LOOK/TAKE", phrase: "Take up", translation: "Se mettre à (un sport, un loisir)", example: "I want to take up photography.", exampleFrench: "Je veux me mettre à la photographie." },
-  { group: "LOOK/TAKE", phrase: "Look like", translation: "Ressembler à", example: "She looks like her mother.", exampleFrench: "Elle ressemble à sa mère." },
 
   // ========== PUT / TURN ==========
   { group: "PUT/TURN", phrase: "Put off", translation: "Reporter / Remettre à plus tard", example: "Never put off until tomorrow what you can do today.", exampleFrench: "Ne remets jamais à demain ce que tu peux faire aujourd'hui." },
@@ -196,8 +197,8 @@ export default function PhrasalVerbsTab() {
       <div style={{ padding: "20px 0", borderBottom: "1px solid #1E293B" }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: "8px" }}>
           <div>
-            <h2 style={{ margin: 0, fontSize: "22px", fontWeight: 700, color: "#F1F5F9" }}>
-              Phrasal Verbs
+            <h2 style={{ margin: 0, fontSize: "22px", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", gap: "8px" }}>
+              <SiReverbnation style={{ color: "#38BDF8" }} /> Phrazal verbs
             </h2>
             <p style={{ margin: "8px 0 0", fontSize: "13px", color: "#94A3B8" }}>
               Liste majeure des phrasal verbs : verbes, traductions et exemples.

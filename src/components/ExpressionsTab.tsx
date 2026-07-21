@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { FaSearch, FaListUl, FaThLarge, FaCheck, FaRegCircle, FaVolumeUp, FaArrowLeft, FaArrowRight, FaTimes } from "react-icons/fa";
+import { RiSpeakAiLine } from "react-icons/ri";
 import { loadFromStorage, saveToStorage, STORAGE_KEYS } from "../utils/storage";
 import { speakSequence, stopSpeech } from "../utils/speech";
 type Expression = {
@@ -286,11 +287,11 @@ export default function ExpressionsTab() {
       <div style={{ padding: "20px 0", borderBottom: "1px solid #1E293B" }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: "8px" }}>
           <div>
-            <h2 style={{ margin: 0, fontSize: "22px", fontWeight: 700, color: "#F1F5F9" }}>
-              Expressions Idiomatiques
+            <h2 style={{ margin: 0, fontSize: "22px", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", gap: "8px" }}>
+              <RiSpeakAiLine style={{ color: "#38BDF8" }} /> Expressions Idiomatiques
             </h2>
             <p style={{ margin: "8px 0 0", fontSize: "13px", color: "#94A3B8" }}>
-              Plus de 100 expressions courantes pour parler comme un natif.
+              Une grande liste d'expressions courantes pour parler comme un natif.
             </p>
           </div>
           <div style={{ width: "100%", maxWidth: "640px" }}>

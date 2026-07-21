@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { FaVolumeUp, FaGamepad, FaExchangeAlt } from "react-icons/fa";
-import { GoClockFill } from "react-icons/go";
+import { FaVolumeUp, FaBookOpen, FaGamepad, FaExchangeAlt } from "react-icons/fa";
+import { PiGearFineDuotone } from "react-icons/pi";
 import { speakSequence, stopSpeech } from "../utils/speech";
 
 // ========== DONNÉES PÉDAGOGIQUES : TEMPS GRAMMATICAUX ==========
@@ -234,7 +234,7 @@ export default function ConjugationLessonTab() {
       {/* En-tête */}
       <div style={{ padding: "20px 0", borderBottom: "1px solid #1E293B", textAlign: "center" }}>
         <h2 style={{ margin: 0, fontSize: "22px", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", gap: "8px" }}>
-          <GoClockFill style={{ color: "#38BDF8" }} /> Conjugaison Anglaise Complète
+          <FaBookOpen style={{ color: "#38BDF8" }} /> Conjugaison Anglaise Complète
         </h2>
         <p style={{ margin: "8px 0 0", fontSize: "13px", color: "#94A3B8" }}>
           Temps grammaticaux, Voix Active / Passive, Verbes Irréguliers & Phrasal Verbs.
@@ -257,7 +257,7 @@ export default function ConjugationLessonTab() {
               gap: "6px",
             }}
           >
-            <GoClockFill /> Les Temps & Le Passif
+            <FaBookOpen /> Les Temps & Le Passif
           </button>
           <button
             onClick={() => setActiveTab("practice")}

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { FaSearch, FaListUl, FaThLarge, FaCheck, FaRegCircle, FaTimes, FaArrowLeft, FaArrowRight, FaVolumeUp } from "react-icons/fa";
+import { FiActivity } from "react-icons/fi";
 import { loadFromStorage, saveToStorage, STORAGE_KEYS } from "../utils/storage";
 import { speakSequence, stopSpeech } from "../utils/speech";
 
@@ -192,7 +193,7 @@ export default function IrregularVerbsTab() {
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: "8px" }}>
           <div>
             <h2 style={{ margin: 0, fontSize: "22px", fontWeight: 700, color: "#F1F5F9" }}>
-              Verbes irréguliers
+              <FiActivity style={{ color: "#38BDF8" }} /> Verbes Irréguliers
             </h2>
             <p style={{ margin: "8px 0 0", fontSize: "13px", color: "#94A3B8" }}>
               Liste essentielle des verbes irréguliers anglais avec leurs formes et traductions.

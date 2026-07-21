@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { FaVolumeUp, FaBookOpen, FaSearch, FaBolt, FaArrowRight, FaInfoCircle } from "react-icons/fa";
+import { FaVolumeUp, FaSearch, FaBolt, FaArrowRight, FaInfoCircle } from "react-icons/fa";
+import { PiGearFineDuotone } from "react-icons/pi";
 import { speakSequence, stopSpeech } from "../utils/speech";
 
 // ========== DONNÉES PÉDAGOGIQUES : RÈGLES GRAMMATICALES ==========
@@ -296,7 +297,7 @@ export default function GrammarRulesTab() {
       {/* En-tête du composant */}
       <div style={{ padding: "20px 0", borderBottom: "1px solid #1E293B", textAlign: "center" }}>
         <h2 style={{ margin: 0, fontSize: "22px", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", gap: "8px" }}>
-          <FaBookOpen style={{ color: "#38BDF8" }} /> Règles d'Or & Grammaire Anglaise
+          <PiGearFineDuotone  style={{ color: "#38BDF8" }} /> Règles d'Or & Grammaire Anglaise
         </h2>
         <p style={{ margin: "8px 0 0", fontSize: "13px", color: "#94A3B8" }}>
           Gérondif (-ing), comparatifs, superlatifs, quantificateurs (some/any) et expressions clés.

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaSearch, FaListUl, FaThLarge, FaCheck, FaRegCircle, FaTimes, FaArrowLeft, FaArrowRight, FaVolumeUp } from "react-icons/fa";
+import { CiBoxList } from "react-icons/ci";
 import { loadFromStorage, saveToStorage, STORAGE_KEYS } from "../utils/storage";
 import { speakSequence, stopSpeech } from "../utils/speech";
 
@@ -699,11 +700,11 @@ export default function WordsTab() {
       <div style={{ padding: "20px 0", borderBottom: "1px solid #1E293B" }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: "8px" }}>
           <div>
-            <h2 style={{ margin: 0, fontSize: "22px", fontWeight: 700, color: "#F1F5F9" }}>
-              Onglet Mots
+            <h2 style={{ margin: 0, fontSize: "22px", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", gap: "8px" }}>
+              <CiBoxList style={{ color: "#38BDF8" }} /> Onglet Mots
             </h2>
             <p style={{ margin: "8px 0 0", fontSize: "13px", color: "#94A3B8" }}>
-              Retrouvez le contenu actuel de l’application dans cet onglet.
+              Liste des mots, verbes, et petites expression de tout les jours pour commencer avec l'anglais.
             </p>
           </div>
           <div style={{ width: "100%", maxWidth: "560px" }}>

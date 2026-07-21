@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaVolumeUp, FaRandom, FaBookOpen, FaGamepad } from "react-icons/fa";
+import { GoNumber } from "react-icons/go";
 import { speakSequence, stopSpeech } from "../utils/speech";
 
 // ========== DONNÉES PÉDAGOGIQUES ==========
@@ -105,8 +106,8 @@ export default function NumbersTab() {
     <div style={{ color: "#F1F5F9", paddingBottom: "80px" }}>
       {/* En-tête */}
       <div style={{ padding: "20px 0", borderBottom: "1px solid #1E293B", textAlign: "center" }}>
-        <h2 style={{ margin: 0, fontSize: "22px", fontWeight: 700 }}>
-          Les Chiffres & Nombres en Anglais
+        <h2 style={{ margin: 0, fontSize: "22px", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", gap: "8px" }}>
+          <GoNumber style={{ color: "#38BDF8" }} /> Les Chiffres & Nombres en Anglais
         </h2>
         <p style={{ margin: "8px 0 0", fontSize: "13px", color: "#94A3B8" }}>
           Apprends à lire les chiffres, les grands nombres et les nombres à virgule (décimaux).
