@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { FaVolumeUp, FaBookOpen, FaGamepad, FaExchangeAlt } from "react-icons/fa";
-import { PiGearFineDuotone } from "react-icons/pi";
 import { speakSequence, stopSpeech } from "../utils/speech";
 
 // ========== DONNÉES PÉDAGOGIQUES : TEMPS GRAMMATICAUX ==========
