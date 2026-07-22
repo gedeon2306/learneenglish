@@ -107,7 +107,7 @@ export default function NumbersTab() {
       {/* En-tête */}
       <div style={{ padding: "20px 0", borderBottom: "1px solid #1E293B", textAlign: "center" }}>
         <h2 style={{ margin: 0, fontSize: "22px", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", gap: "8px" }}>
-          <GoNumber style={{ color: "#38BDF8" }} /> Les Chiffres & Nombres en Anglais
+          <GoNumber style={{ color: "#38BDF8" }} /> Chiffres & Nombres
         </h2>
         <p style={{ margin: "8px 0 0", fontSize: "13px", color: "#94A3B8" }}>
           Apprends à lire les chiffres, les grands nombres et les nombres à virgule (décimaux).
