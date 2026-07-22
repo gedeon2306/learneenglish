@@ -1,4 +1,4 @@
-const CACHE_NAME = 'version-2';
+const CACHE_NAME = 'version-3';
 const urlsToCache = [ '/', '/index.html' ];
 
 // 1. Installation & Prise en main immédiate
