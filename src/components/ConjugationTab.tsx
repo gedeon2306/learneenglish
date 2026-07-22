@@ -233,7 +233,7 @@ export default function ConjugationLessonTab() {
       {/* En-tête */}
       <div style={{ padding: "20px 0", borderBottom: "1px solid #1E293B", textAlign: "center" }}>
         <h2 style={{ margin: 0, fontSize: "22px", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", gap: "8px" }}>
-          <FaBookOpen style={{ color: "#38BDF8" }} /> Conjugaison Anglaise Complète
+          <FaBookOpen style={{ color: "#38BDF8" }} /> Conjugaison Anglaise
         </h2>
         <p style={{ margin: "8px 0 0", fontSize: "13px", color: "#94A3B8" }}>
           Temps grammaticaux, Voix Active / Passive, Verbes Irréguliers & Phrasal Verbs.
