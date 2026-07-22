@@ -175,15 +175,19 @@ export default function IrregularVerbsTab() {
   const currentCard = filtered[Math.min(cardIndex, Math.max(filtered.length - 1, 0))];
 
   const toggleReveal = (base: string) => setRevealed((prev) => ({ ...prev, [base]: !prev[base] }));
+  const hideCard = (base: string) => setRevealed((prev) => ({ ...prev, [base]: false }));
   const toggleLearned = (base: string) => setLearned((prev) => ({ ...prev, [base]: !prev[base] }));
 
   const speakVerb = (item: IrregularVerb) => {
     stopSpeech();
     speakSequence([
       { text: item.base, lang: "en-US" },
-      { text: `Prétérit : ${item.preterit}`, lang: "en-US" },
-      { text: `Participe passé : ${item.pastParticiple}`, lang: "en-US" },
-      { text: `Traduction : ${item.translation}`, lang: "fr-FR" },
+      { text: "Prétérit", lang: "fr-FR" },
+      { text: item.preterit, lang: "en-US" },
+      { text: "Participe passé", lang: "fr-FR" },
+      { text: item.pastParticiple, lang: "en-US" },
+      { text: "Traduction", lang: "fr-FR" },
+      { text: item.translation, lang: "fr-FR" },
     ]);
   };
 
@@ -331,6 +335,7 @@ export default function IrregularVerbsTab() {
               cursor: currentCard ? "pointer" : "default",
               textAlign: "center",
               transition: "all 0.3s",
+              position: "relative"
             }}
           >
             {currentCard ? (
@@ -351,48 +356,57 @@ export default function IrregularVerbsTab() {
             )}
           </div>
 
-          {currentCard && revealed[currentCard.base] && (
-            <>
-              <div style={{ display: "flex", gap: "12px", marginTop: "16px", width: "100%", maxWidth: "360px" }}>
-                <button
-                  onClick={() => {
-                    toggleLearned(currentCard.base);
-                    setRevealed((prev) => ({ ...prev, [currentCard.base]: false }));
-                    setCardIndex((prev) => Math.min(filtered.length - 1, prev + 1));
-                  }}
-                  style={{ flex: 1, background: "#10B981", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px" }}
-                >
-                  <FaCheck /> Je sais
-                </button>
-                <button
-                  onClick={() => {
-                    setRevealed((prev) => ({ ...prev, [currentCard.base]: false }));
-                    setCardIndex((prev) => Math.min(filtered.length - 1, prev + 1));
-                  }}
-                  style={{ flex: 1, background: "#EF4444", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px" }}
-                >
-                  <FaTimes /> A revoir
-                </button>
-              </div>
+          {currentCard && (
+            <div style={{ width: "100%", maxWidth: "360px", marginTop: "16px", display: "flex", flexDirection: "column", gap: "10px" }}>
+              {revealed[currentCard.base] && (
+                <div style={{ display: "flex", gap: "12px", width: "100%" }}>
+                  <button
+                    onClick={() => {
+                      toggleLearned(currentCard.base);
+                      hideCard(currentCard.base);
+                      setCardIndex((prev) => Math.min(filtered.length - 1, prev + 1));
+                    }}
+                    style={{ flex: 1, background: "#10B981", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px" }}
+                  >
+                    <FaCheck /> Je sais
+                  </button>
+                  <button
+                    onClick={() => {
+                      hideCard(currentCard.base);
+                      setCardIndex((prev) => Math.min(filtered.length - 1, prev + 1));
+                    }}
+                    style={{ flex: 1, background: "#EF4444", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px" }}
+                  >
+                    <FaTimes /> À revoir
+                  </button>
+                </div>
+              )}
+              
               <button
                 type="button"
-                onClick={() => currentCard && speakVerb(currentCard)}
-                style={{ width: "100%", maxWidth: "360px", background: "#334155", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", marginTop: "12px" }}
+                onClick={() => speakVerb(currentCard)}
+                style={{ width: "100%", background: "#334155", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px" }}
               >
-                <FaVolumeUp /> Son
+                <FaVolumeUp /> Écouter
               </button>
-            </>
+            </div>
           )}
 
           <div style={{ display: "flex", gap: "8px", marginTop: "16px", justifyContent: "center" }}>
             <button
-              onClick={() => { setCardIndex((prev) => Math.max(0, prev - 1)); setRevealed({}); }}
+              onClick={() => {
+                if (currentCard) hideCard(currentCard.base);
+                setCardIndex((prev) => Math.max(0, prev - 1));
+              }}
               style={{ background: "#1E293B", border: "1px solid #334155", borderRadius: "8px", padding: "8px 16px", color: "#94A3B8", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "6px" }}
             >
               <FaArrowLeft /> Préc
             </button>
             <button
-              onClick={() => { setCardIndex((prev) => Math.min(filtered.length - 1, prev + 1)); setRevealed({}); }}
+              onClick={() => {
+                if (currentCard) hideCard(currentCard.base);
+                setCardIndex((prev) => Math.min(filtered.length - 1, prev + 1));
+              }}
               style={{ background: "#1E293B", border: "1px solid #334155", borderRadius: "8px", padding: "8px 16px", color: "#94A3B8", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "6px" }}
             >
               Suiv <FaArrowRight />
@@ -403,7 +417,10 @@ export default function IrregularVerbsTab() {
             {filtered.map((item, index) => (
               <div
                 key={item.base}
-                onClick={() => { setCardIndex(index); setRevealed({}); }}
+                onClick={() => {
+                  if (currentCard) hideCard(currentCard.base);
+                  setCardIndex(index);
+                }}
                 style={{ width: "8px", height: "8px", borderRadius: "50%", cursor: "pointer", background: learned[item.base] ? "#10B981" : index === cardIndex ? "#3B82F6" : "#334155" }}
               />
             ))}
