@@ -209,6 +209,8 @@ const expressions: Expression[] = [
   { group: "PRACTICAL", expression: "To make matters worse", meaning: "Pour ne rien arranger / Pour couronner le tout", example: "It started raining, and to make matters worse, I forgot my keys.", exampleFrench: "Il a commencé à pleuvoir, et en plus, j'ai oublié mes clés." },
   { group: "PRACTICAL", expression: "Get down to business", meaning: "Passer aux choses sérieuses", example: "Stop chatting and let's get down to business.", exampleFrench: "Arrêtez de discuter et passons aux choses sérieuses." },
   { group: "PRACTICAL", expression: "In my shoes", meaning: "À ma place", example: "What would you do if you were in my shoes?", exampleFrench: "Qu'est-ce que tu ferais à ma place?" },
+  { group: "PRACTICAL", expression: "Nor do we", meaning: "Nous non plus", example: "I don't like it, nor do we.", exampleFrench: "Je n'aime pas ça, nous non plus." },
+  { group: "PRACTICAL", expression: "might as well just", meaning: "Autant juste / autant s'en tenir à", example: "It's raining, we might as well just stay home.", exampleFrench: "Il pleut, autant juste rester à la maison." },
   { group: "PRACTICAL", expression: "Take something for granted", meaning: "Prendre quelque chose pour acquis", example: "Don't take your health for granted.", exampleFrench: "Ne prends pas ta santé pour acquise." },
   { group: "PRACTICAL", expression: "No pain, no gain", meaning: "On n'a rien sans rien", example: "I have to practice every day. No pain, no gain.", exampleFrench: "Je dois pratiquer tous les jours. On n'a rien sans rien." },
   { group: "PRACTICAL", expression: "Out of order", meaning: "En panne (machines)", example: "The elevator is out of order.", exampleFrench: "L'ascenseur est en panne." },
