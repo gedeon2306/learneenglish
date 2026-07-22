@@ -3,6 +3,7 @@ import { FaSearch, FaListUl, FaThLarge, FaCheck, FaRegCircle, FaVolumeUp, FaArro
 import { RiSpeakAiLine } from "react-icons/ri";
 import { loadFromStorage, saveToStorage, STORAGE_KEYS } from "../utils/storage";
 import { speakSequence, stopSpeech } from "../utils/speech";
+
 type Expression = {
   group: string;
   expression: string;
@@ -181,7 +182,7 @@ const expressions: Expression[] = [
   { group: "FEELINGS", expression: "Keep an eye on", meaning: "Garder un œil sur / Surveiller", example: "Can you keep an eye on my bag for a minute?", exampleFrench: "Tu peux garder un œil sur mon sac une minute?" },
   { group: "FEELINGS", expression: "In the nick of time", meaning: "Juste à temps / Au dernier moment", example: "The ambulance arrived in the nick of time.", exampleFrench: "L'ambulance est arrivée juste à temps." },
   { group: "FEELINGS", expression: "Face to face", meaning: "En tête-à-tête / Face à face", example: "We need to discuss this face to face.", exampleFrench: "On doit en discuter face à face." },
-  { group: "FEELINGS", expression: "On the tip of my tongue", meaning: "Sur le bout de la langue", example: "His name is on the tip of my tongue, but I can't remember it!", exampleFrench: "Son nom est sur le bout de ma langue, mais je ne m'en souviens pas!" },
+  { group: "FEELINGS", expression: "On the tip of my tongue", meaning: "Sur le bout de ma langue", example: "His name is on the tip of my tongue, but I can't remember it!", exampleFrench: "Son nom est sur le bout de ma langue, mais je ne m'en souviens pas!" },
   { group: "FEELINGS", expression: "Head over heels (in love)", meaning: "Éperdument amoureux", example: "They are head over heels in love with each other.", exampleFrench: "Ils sont éperdument amoureux l'un de l'autre." },
   { group: "FEELINGS", expression: "Out of the blue", meaning: "Sorti de nulle part / À l'improviste", example: "He called me out of the blue after five years.", exampleFrench: "Il m'a appelé de nulle part après cinq ans." },
   { group: "FEELINGS", expression: "Take it easy", meaning: "Relax / Ne te prends pas la tête", example: "Take it easy, there's no reason to be angry.", exampleFrench: "Relax, il n'y a pas de raison d'être en colère." },
@@ -209,6 +210,8 @@ const expressions: Expression[] = [
   { group: "PRACTICAL", expression: "To make matters worse", meaning: "Pour ne rien arranger / Pour couronner le tout", example: "It started raining, and to make matters worse, I forgot my keys.", exampleFrench: "Il a commencé à pleuvoir, et en plus, j'ai oublié mes clés." },
   { group: "PRACTICAL", expression: "Get down to business", meaning: "Passer aux choses sérieuses", example: "Stop chatting and let's get down to business.", exampleFrench: "Arrêtez de discuter et passons aux choses sérieuses." },
   { group: "PRACTICAL", expression: "In my shoes", meaning: "À ma place", example: "What would you do if you were in my shoes?", exampleFrench: "Qu'est-ce que tu ferais à ma place?" },
+  { group: "PRACTICAL", expression: "Nor do we", meaning: "Nous non plus", example: "I don't like it, nor do we.", exampleFrench: "Je n'aime pas ça, nous non plus." },
+  { group: "PRACTICAL", expression: "might as well just", meaning: "Autant juste / autant s'en tenir à", example: "It's raining, we might as well just stay home.", exampleFrench: "Il pleut, autant juste rester à la maison." },
   { group: "PRACTICAL", expression: "Take something for granted", meaning: "Prendre quelque chose pour acquis", example: "Don't take your health for granted.", exampleFrench: "Ne prends pas ta santé pour acquise." },
   { group: "PRACTICAL", expression: "No pain, no gain", meaning: "On n'a rien sans rien", example: "I have to practice every day. No pain, no gain.", exampleFrench: "Je dois pratiquer tous les jours. On n'a rien sans rien." },
   { group: "PRACTICAL", expression: "Out of order", meaning: "En panne (machines)", example: "The elevator is out of order.", exampleFrench: "L'ascenseur est en panne." },
@@ -270,15 +273,18 @@ export default function ExpressionsTab() {
   const currentCard = filtered[Math.min(cardIndex, Math.max(filtered.length - 1, 0))];
 
   const toggleReveal = (expression: string) => setRevealed((prev) => ({ ...prev, [expression]: !prev[expression] }));
+  const hideCard = (expression: string) => setRevealed((prev) => ({ ...prev, [expression]: false }));
   const toggleLearned = (expression: string) => setLearned((prev) => ({ ...prev, [expression]: !prev[expression] }));
 
   const speakExpression = (item: Expression) => {
     stopSpeech();
     speakSequence([
       { text: item.expression, lang: "en-US" },
+      { text: "Traduction", lang: "fr-FR" },
       { text: item.meaning, lang: "fr-FR" },
-      { text: `Exemple : ${item.example}`, lang: "en-US" },
-      { text: `Traduction : ${item.exampleFrench}`, lang: "fr-FR" },
+      { text: "Exemple", lang: "fr-FR" },
+      { text: item.example, lang: "en-US" },
+      { text: item.exampleFrench, lang: "fr-FR" },
     ]);
   };
 
@@ -371,8 +377,8 @@ export default function ExpressionsTab() {
                           <span style={{ fontWeight: 700, fontSize: "16px", color: isLearned ? "#4ADE80" : "#F1F5F9" }}>{item.expression}</span>
                           {isRevealed ? (
                             <div style={{ marginTop: "6px", fontSize: "14px", color: "#94A3B8", display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                            🇫🇷 {item.meaning}
-                          </div>
+                              🇫🇷 {item.meaning}
+                            </div>
                           ) : (
                             <div style={{ fontSize: "11px", color: "#475569", marginTop: "4px" }}>Appuie pour voir la traduction</div>
                           )}
@@ -380,9 +386,9 @@ export default function ExpressionsTab() {
                         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "6px", justifyContent: "flex-end" }}>
                           <button
                             onClick={(e) => { e.stopPropagation(); toggleLearned(item.expression); }}
-                          style={{ background: isLearned ? "#10B981" : "#334155", border: "none", borderRadius: "6px", padding: "4px 8px", color: "#fff", fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
-                        >
-                          {isLearned ? <FaCheck /> : <FaRegCircle />}
+                            style={{ background: isLearned ? "#10B981" : "#334155", border: "none", borderRadius: "6px", padding: "4px 8px", color: "#fff", fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
+                          >
+                            {isLearned ? <FaCheck /> : <FaRegCircle />}
                           </button>
                           <button
                             type="button"
@@ -451,48 +457,57 @@ export default function ExpressionsTab() {
             )}
           </div>
 
-          {currentCard && revealed[currentCard.expression] && (
-            <>
-              <div style={{ display: "flex", gap: "12px", marginTop: "16px", width: "100%", maxWidth: "360px" }}>
-                <button
-                  onClick={() => {
-                    toggleLearned(currentCard.expression);
-                    setRevealed((prev) => ({ ...prev, [currentCard.expression]: false }));
-                    setCardIndex((prev) => Math.min(filtered.length - 1, prev + 1));
-                  }}
-                  style={{ flex: 1, background: "#10B981", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px" }}
-                >
-                  <FaCheck /> Je sais
-                </button>
-                <button
-                  onClick={() => {
-                    setRevealed((prev) => ({ ...prev, [currentCard.expression]: false }));
-                    setCardIndex((prev) => Math.min(filtered.length - 1, prev + 1));
-                  }}
-                  style={{ flex: 1, background: "#EF4444", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px" }}
-                >
-                  <FaTimes /> À revoir
-                </button>
-              </div>
+          {currentCard && (
+            <div style={{ width: "100%", maxWidth: "360px", marginTop: "16px", display: "flex", flexDirection: "column", gap: "10px" }}>
+              {revealed[currentCard.expression] && (
+                <div style={{ display: "flex", gap: "12px", width: "100%" }}>
+                  <button
+                    onClick={() => {
+                      toggleLearned(currentCard.expression);
+                      hideCard(currentCard.expression);
+                      setCardIndex((prev) => Math.min(filtered.length - 1, prev + 1));
+                    }}
+                    style={{ flex: 1, background: "#10B981", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px" }}
+                  >
+                    <FaCheck /> Je sais
+                  </button>
+                  <button
+                    onClick={() => {
+                      hideCard(currentCard.expression);
+                      setCardIndex((prev) => Math.min(filtered.length - 1, prev + 1));
+                    }}
+                    style={{ flex: 1, background: "#EF4444", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px" }}
+                  >
+                    <FaTimes /> À revoir
+                  </button>
+                </div>
+              )}
+              
               <button
                 type="button"
-                onClick={() => currentCard && speakExpression(currentCard)}
-                style={{ width: "100%", maxWidth: "360px", background: "#334155", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", marginTop: "12px" }}
+                onClick={() => speakExpression(currentCard)}
+                style={{ width: "100%", background: "#334155", border: "none", borderRadius: "10px", padding: "12px", color: "#fff", fontWeight: 700, fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px" }}
               >
-                <FaVolumeUp /> Son
+                <FaVolumeUp /> Écouter
               </button>
-            </>
+            </div>
           )}
 
           <div style={{ display: "flex", gap: "8px", marginTop: "16px", justifyContent: "center" }}>
             <button
-              onClick={() => { setCardIndex((prev) => Math.max(0, prev - 1)); setRevealed({}); }}
+              onClick={() => {
+                if (currentCard) hideCard(currentCard.expression);
+                setCardIndex((prev) => Math.max(0, prev - 1));
+              }}
               style={{ background: "#1E293B", border: "1px solid #334155", borderRadius: "8px", padding: "8px 16px", color: "#94A3B8", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "6px" }}
             >
               <FaArrowLeft /> Préc
             </button>
             <button
-              onClick={() => { setCardIndex((prev) => Math.min(filtered.length - 1, prev + 1)); setRevealed({}); }}
+              onClick={() => {
+                if (currentCard) hideCard(currentCard.expression);
+                setCardIndex((prev) => Math.min(filtered.length - 1, prev + 1));
+              }}
               style={{ background: "#1E293B", border: "1px solid #334155", borderRadius: "8px", padding: "8px 16px", color: "#94A3B8", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "6px" }}
             >
               Suiv <FaArrowRight />
@@ -503,7 +518,10 @@ export default function ExpressionsTab() {
             {filtered.map((item, index) => (
               <div
                 key={item.expression}
-                onClick={() => { setCardIndex(index); setRevealed({}); }}
+                onClick={() => {
+                  if (currentCard) hideCard(currentCard.expression);
+                  setCardIndex(index);
+                }}
                 style={{ width: "8px", height: "8px", borderRadius: "50%", cursor: "pointer", background: learned[item.expression] ? "#10B981" : index === cardIndex ? "#3B82F6" : "#334155" }}
               />
             ))}
