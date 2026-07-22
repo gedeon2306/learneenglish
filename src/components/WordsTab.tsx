@@ -4,7 +4,7 @@ import { CiBoxList } from "react-icons/ci";
 import { loadFromStorage, saveToStorage, STORAGE_KEYS } from "../utils/storage";
 import { speakSequence, stopSpeech } from "../utils/speech";
 
-const WORDS_PER_LOT = 37;
+const WORDS_PER_LOT = 40;
 const TOTAL_LOTS = 30;
 
 const lotTitles = [
@@ -38,7 +38,8 @@ const allWords = [
   { en: "wife", fr: "épouse", cat: "Nom" }, { en: "couple", fr: "couple", cat: "Nom" },
   { en: "partner", fr: "partenaire", cat: "Nom" }, { en: "friend", fr: "ami(e)", cat: "Nom" },
   { en: "neighbor", fr: "voisin", cat: "Nom" }, { en: "stranger", fr: "inconnu", cat: "Nom" },
-  { en: "enemy", fr: "ennemi", cat: "Nom" },
+  { en: "enemy", fr: "ennemi", cat: "Nom" }, { en: "something", fr: "quelque chose", cat: "Pronom" },
+  { en: "everyone", fr: "tout le monde", cat: "Pronom" }, { en: "anybody", fr: "n'importe qui", cat: "Pronom" },
 
   // LOT 2 : Verbes essentiels I
   { en: "to be", fr: "être", cat: "Verbe" }, { en: "to have", fr: "avoir", cat: "Verbe" },
@@ -59,7 +60,8 @@ const allWords = [
   { en: "to try", fr: "essayer", cat: "Verbe" }, { en: "to ask", fr: "demander", cat: "Verbe" },
   { en: "to feel", fr: "ressentir", cat: "Verbe" }, { en: "to leave", fr: "partir / quitter", cat: "Verbe" },
   { en: "to show", fr: "montrer", cat: "Verbe" }, { en: "to hear", fr: "entendre", cat: "Verbe" },
-  { en: "to listen", fr: "écouter", cat: "Verbe" },
+  { en: "to listen", fr: "écouter", cat: "Verbe" }, { en: "to guess", fr: "deviner", cat: "Verbe" },
+  { en: "to seem", fr: "sembler", cat: "Verbe" }, { en: "to notice", fr: "remarquer", cat: "Verbe" },
 
   // LOT 3 : Verbes essentiels II
   { en: "to run", fr: "courir", cat: "Verbe" }, { en: "to walk", fr: "marcher", cat: "Verbe" },
@@ -75,11 +77,13 @@ const allWords = [
   { en: "to turn", fr: "tourner", cat: "Verbe" }, { en: "to move", fr: "bouger", cat: "Verbe" },
   { en: "to change", fr: "changer", cat: "Verbe" }, { en: "to wait", fr: "attendre", cat: "Verbe" },
   { en: "to meet", fr: "rencontrer", cat: "Verbe" }, { en: "to understand", fr: "comprendre", cat: "Verbe" },
-  { en: "to remember", fr: "se souvenir", cat: "Verbe" }, { en: "to forget", fr: "oublier", cat: "Verbe" }, { en: "to follow", fr: "suivre", cat: "Verbe" },
-  { en: "to push", fr: "pousser", cat: "Verbe" }, { en: "to pull", fr: "tirer", cat: "Verbe" },
-  { en: "to lose", fr: "perdre", cat: "Verbe" }, { en: "to win", fr: "gagner", cat: "Verbe" },
-  { en: "to send", fr: "envoyer", cat: "Verbe" }, { en: "to receive", fr: "recevoir", cat: "Verbe" },
-  { en: "to stay", fr: "rester", cat: "Verbe" }, { en: "to fall", fr: "tomber", cat: "Verbe" },
+  { en: "to remember", fr: "se souvenir", cat: "Verbe" }, { en: "to forget", fr: "oublier", cat: "Verbe" },
+  { en: "to follow", fr: "suivre", cat: "Verbe" }, { en: "to push", fr: "pousser", cat: "Verbe" },
+  { en: "to pull", fr: "tirer", cat: "Verbe" }, { en: "to lose", fr: "perdre", cat: "Verbe" },
+  { en: "to win", fr: "gagner", cat: "Verbe" }, { en: "to send", fr: "envoyer", cat: "Verbe" },
+  { en: "to receive", fr: "recevoir", cat: "Verbe" }, { en: "to stay", fr: "rester", cat: "Verbe" },
+  { en: "to fall", fr: "tomber", cat: "Verbe" }, { en: "to remain", fr: "rester", cat: "Verbe" },
+  { en: "to handle", fr: "gérer", cat: "Verbe" }, { en: "to pick", fr: "choisir", cat: "Verbe" },
 
   // LOT 4 : Nombres et Temps
   { en: "one", fr: "un", cat: "Nombre" }, { en: "two", fr: "deux", cat: "Nombre" },
@@ -100,7 +104,8 @@ const allWords = [
   { en: "sometimes", fr: "parfois", cat: "Adverbe" }, { en: "early", fr: "tôt / en avance", cat: "Adjectif" },
   { en: "late", fr: "tard / en retard", cat: "Adjectif" }, { en: "soon", fr: "bientôt", cat: "Adverbe" },
   { en: "already", fr: "déjà", cat: "Adverbe" }, { en: "still", fr: "encore / toujours", cat: "Adverbe" },
-  { en: "once", fr: "une fois", cat: "Adverbe" },
+  { en: "once", fr: "une fois", cat: "Adverbe" }, { en: "anytime", fr: "à tout moment", cat: "Adverbe" },
+  { en: "currently", fr: "actuellement", cat: "Adverbe" }, { en: "ever", fr: "jamais / déjà", cat: "Adverbe" },
 
   // LOT 5 : Questions et Liaisons
   { en: "what", fr: "quoi / quel", cat: "Question" }, { en: "who", fr: "qui", cat: "Question" },
@@ -121,7 +126,8 @@ const allWords = [
   { en: "on", fr: "sur", cat: "Prep" }, { en: "at", fr: "à", cat: "Prep" },
   { en: "about", fr: "à propos de", cat: "Prep" }, { en: "like", fr: "comme", cat: "Prep" },
   { en: "as", fr: "comme / en tant que", cat: "Prep" }, { en: "than", fr: "que (comparatif)", cat: "Conjonction" },
-  { en: "then", fr: "alors / ensuite", cat: "Adverbe" },
+  { en: "then", fr: "alors / ensuite", cat: "Adverbe" }, { en: "what kind of", fr: "quel genre de", cat: "Question" },
+  { en: "though", fr: "cependant", cat: "Conjonction" }, { en: "either", fr: "soit / non plus", cat: "Conjonction" },
 
   // LOT 6 : Adjectifs I
   { en: "good", fr: "bon", cat: "Adjectif" }, { en: "bad", fr: "mauvais", cat: "Adjectif" },
@@ -142,7 +148,8 @@ const allWords = [
   { en: "safe", fr: "en sécurité", cat: "Adjectif" }, { en: "dangerous", fr: "dangereux", cat: "Adjectif" },
   { en: "same", fr: "même / pareil", cat: "Adjectif" }, { en: "different", fr: "différent", cat: "Adjectif" },
   { en: "ready", fr: "prêt", cat: "Adjectif" }, { en: "free", fr: "libre / gratuit", cat: "Adjectif" },
-  { en: "busy", fr: "occupé", cat: "Adjectif" },
+  { en: "busy", fr: "occupé", cat: "Adjectif" }, { en: "every", fr: "chaque", cat: "Adjectif" },
+  { en: "some", fr: "quelque / un peu de", cat: "Adjectif" }, { en: "famous", fr: "célèbre", cat: "Adjectif" },
 
   // LOT 7 : Adjectifs II
   { en: "beautiful", fr: "beau / belle", cat: "Adjectif" }, { en: "pretty", fr: "joli", cat: "Adjectif" },
@@ -163,18 +170,18 @@ const allWords = [
   { en: "warm", fr: "tiède / chaud agréable", cat: "Adjectif" }, { en: "cool", fr: "frais / cool", cat: "Adjectif" },
   { en: "certain", fr: "certain", cat: "Adjectif" }, { en: "sure", fr: "sûr / certain", cat: "Adjectif" },
   { en: "clear", fr: "clair", cat: "Adjectif" }, { en: "fair", fr: "juste / équitable", cat: "Adjectif" },
-  { en: "real", fr: "réel", cat: "Adjectif" },
+  { en: "real", fr: "réel", cat: "Adjectif" }, { en: "better", fr: "mieux / meilleur", cat: "Adjectif" },
+  { en: "definite", fr: "précis", cat: "Adjectif" }, { en: "current", fr: "actuel", cat: "Adjectif" },
 
   // LOT 8 : Lieu et Espace
   { en: "here", fr: "ici", cat: "Adverbe" }, { en: "there", fr: "là", cat: "Adverbe" },
-  { en: "where", fr: "où", cat: "Question" }, { en: "everywhere", fr: "partout", cat: "Adverbe" },
-  { en: "nowhere", fr: "nulle part", cat: "Adverbe" }, { en: "somewhere", fr: "quelque part", cat: "Adverbe" },
-  { en: "top", fr: "sommet / haut", cat: "Nom" }, { en: "bottom", fr: "bas / fond", cat: "Nom" },
-  { en: "front", fr: "devant", cat: "Nom" }, { en: "back", fr: "arrière / dos", cat: "Nom" },
-  { en: "side", fr: "côté", cat: "Nom" }, { en: "inside", fr: "à l'intérieur", cat: "Prep" },
-  { en: "outside", fr: "à l'extérieur", cat: "Prep" }, { en: "up", fr: "en haut", cat: "Prep" },
-  { en: "down", fr: "en bas", cat: "Prep" }, { en: "left", fr: "gauche", cat: "Nom" },
-  { en: "right", fr: "droite", cat: "Nom" }, { en: "north", fr: "nord", cat: "Nom" },
+  { en: "everywhere", fr: "partout", cat: "Adverbe" }, { en: "nowhere", fr: "nulle part", cat: "Adverbe" },
+  { en: "somewhere", fr: "quelque part", cat: "Adverbe" }, { en: "top", fr: "sommet / haut", cat: "Nom" },
+  { en: "bottom", fr: "bas / fond", cat: "Nom" }, { en: "front", fr: "devant", cat: "Nom" },
+  { en: "back", fr: "arrière / dos", cat: "Nom" }, { en: "side", fr: "côté", cat: "Nom" },
+  { en: "inside", fr: "à l'intérieur", cat: "Prep" }, { en: "outside", fr: "à l'extérieur", cat: "Prep" },
+  { en: "up", fr: "en haut", cat: "Prep" }, { en: "down", fr: "en bas", cat: "Prep" },
+  { en: "left", fr: "gauche", cat: "Nom" }, { en: "north", fr: "nord", cat: "Nom" },
   { en: "south", fr: "sud", cat: "Nom" }, { en: "east", fr: "est", cat: "Nom" },
   { en: "west", fr: "ouest", cat: "Nom" }, { en: "center", fr: "centre", cat: "Nom" },
   { en: "middle", fr: "milieu", cat: "Nom" }, { en: "near", fr: "près de", cat: "Prep" },
@@ -184,7 +191,9 @@ const allWords = [
   { en: "over", fr: "au-dessus", cat: "Prep" }, { en: "above", fr: "au-dessus de", cat: "Prep" },
   { en: "below", fr: "en dessous de", cat: "Prep" }, { en: "next to", fr: "à côté de", cat: "Prep" },
   { en: "across", fr: "en face de / à travers", cat: "Prep" }, { en: "place", fr: "endroit", cat: "Nom" },
-  { en: "area", fr: "zone / région", cat: "Nom" },
+  { en: "area", fr: "zone / région", cat: "Nom" }, { en: "through", fr: "à travers", cat: "Prep" },
+  { en: "within", fr: "dans / en dedans de", cat: "Prep" }, { en: "since", fr: "depuis", cat: "Prep" },
+  { en: "beyond", fr: "au-delà de", cat: "Prep" }, { en: "against", fr: "contre", cat: "Prep" },
 
   // LOT 9 : Corps humain
   { en: "body", fr: "corps", cat: "Nom" }, { en: "head", fr: "tête", cat: "Nom" },
@@ -205,7 +214,8 @@ const allWords = [
   { en: "sick", fr: "malade", cat: "Adjectif" }, { en: "ill", fr: "malade", cat: "Adjectif" },
   { en: "healthy", fr: "en bonne santé", cat: "Adjectif" }, { en: "pain", fr: "douleur", cat: "Nom" },
   { en: "hurt", fr: "blesser / faire mal", cat: "Verbe" }, { en: "breath", fr: "respiration", cat: "Nom" },
-  { en: "breathe", fr: "respirer", cat: "Verbe" },
+  { en: "breathe", fr: "respirer", cat: "Verbe" }, { en: "balance", fr: "équilibre", cat: "Nom" },
+  { en: "needs", fr: "besoins", cat: "Nom" }, { en: "careful", fr: "prudent", cat: "Adjectif" },
 
   // LOT 10 : Maison et Objets
   { en: "house", fr: "maison", cat: "Nom" }, { en: "home", fr: "foyer / chez-soi", cat: "Nom" },
@@ -226,7 +236,8 @@ const allWords = [
   { en: "pencil", fr: "crayon", cat: "Nom" }, { en: "book", fr: "livre", cat: "Nom" },
   { en: "trash", fr: "poubelle / déchets", cat: "Nom" }, { en: "soap", fr: "savon", cat: "Nom" },
   { en: "towel", fr: "serviette", cat: "Nom" }, { en: "lounge", fr: "salon / hall", cat: "Nom" },
-  { en: "thing", fr: "chose", cat: "Nom" },
+  { en: "thing", fr: "chose", cat: "Nom" }, { en: "notice", fr: "avis / préavis", cat: "Nom" },
+  { en: "tip", fr: "conseil / astuce", cat: "Nom" }, { en: "tips", fr: "conseils", cat: "Nom" },
 
   // LOT 11 : Nourriture et Boissons
   { en: "food", fr: "nourriture", cat: "Nom" }, { en: "meal", fr: "repas", cat: "Nom" },
@@ -247,7 +258,8 @@ const allWords = [
   { en: "spoon", fr: "cuillère", cat: "Nom" }, { en: "tray", fr: "plateau", cat: "Nom" },
   { en: "hungry", fr: "affamé", cat: "Adjectif" }, { en: "thirsty", fr: "assoiffé", cat: "Adjectif" },
   { en: "sour", fr: "acide", cat: "Adjectif" }, { en: "spicy", fr: "épicé", cat: "Adjectif" },
-  { en: "taste", fr: "goût / goûter", cat: "Verbe" },
+  { en: "taste", fr: "goût / goûter", cat: "Verbe" }, { en: "glad", fr: "content", cat: "Adjectif" },
+  { en: "eager", fr: "impatient", cat: "Adjectif" }, { en: "thrilled", fr: "ravi", cat: "Adjectif" },
 
   // LOT 12 : Vêtements et Couleurs
   { en: "clothes", fr: "vêtements", cat: "Nom" }, { en: "shirt", fr: "chemise", cat: "Nom" },
@@ -268,7 +280,8 @@ const allWords = [
   { en: "style", fr: "style", cat: "Nom" }, { en: "look", fr: "apparence / air", cat: "Nom" },
   { en: "gold", fr: "or", cat: "Nom" }, { en: "silver", fr: "argent (métal)", cat: "Nom" },
   { en: "cotton", fr: "coton", cat: "Nom" }, { en: "ring", fr: "bague / anneau", cat: "Nom" },
-  { en: "watch", fr: "montre", cat: "Nom" },
+  { en: "watch", fr: "montre", cat: "Nom" }, { en: "willing", fr: "disposé", cat: "Adjectif" },
+  { en: "easygoing", fr: "facile à vivre", cat: "Adjectif" }, { en: "unfamiliar", fr: "inconnu", cat: "Adjectif" },
 
   // LOT 13 : Nature et Environnement
   { en: "nature", fr: "nature", cat: "Nom" }, { en: "earth", fr: "terre / globe", cat: "Nom" },
@@ -289,7 +302,8 @@ const allWords = [
   { en: "wind", fr: "vent", cat: "Nom" }, { en: "cloud", fr: "nuage", cat: "Nom" },
   { en: "storm", fr: "tempête", cat: "Nom" }, { en: "season", fr: "saison", cat: "Nom" },
   { en: "spring", fr: "printemps", cat: "Nom" }, { en: "summer", fr: "été", cat: "Nom" },
-  { en: "environment", fr: "environnement", cat: "Nom" },
+  { en: "environment", fr: "environnement", cat: "Nom" }, { en: "nearby", fr: "à proximité", cat: "Adverbe" },
+  { en: "mostly", fr: "surtout", cat: "Adverbe" }, { en: "besides", fr: "en plus", cat: "Adverbe" },
 
   // LOT 14 : Transport et Voyage
   { en: "car", fr: "voiture", cat: "Nom" }, { en: "bus", fr: "bus", cat: "Nom" },
@@ -310,7 +324,8 @@ const allWords = [
   { en: "depart", fr: "décoller / partir", cat: "Verbe" }, { en: "flight", fr: "vol", cat: "Nom" },
   { en: "passenger", fr: "passager", cat: "Nom" }, { en: "seat", fr: "siège / place", cat: "Nom" },
   { en: "luggage", fr: "bagage", cat: "Nom" }, { en: "tourist", fr: "touriste", cat: "Nom" },
-  { en: "visit", fr: "visiter / rendre visite", cat: "Verbe" },
+  { en: "visit", fr: "visiter / rendre visite", cat: "Verbe" }, { en: "right away", fr: "tout de suite", cat: "Expression" },
+  { en: "straight ahead", fr: "tout droit", cat: "Expression" }, { en: "into", fr: "dans / vers", cat: "Prep" },
 
   // LOT 15 : Travail et Éducation
   { en: "work", fr: "travail / travailler", cat: "Nom" }, { en: "job", fr: "emploi / métier", cat: "Nom" },
@@ -331,7 +346,8 @@ const allWords = [
   { en: "meeting", fr: "réunion", cat: "Nom" }, { en: "skill", fr: "compétence", cat: "Nom" },
   { en: "effort", fr: "effort", cat: "Nom" }, { en: "success", fr: "succès", cat: "Nom" },
   { en: "failure", fr: "échec", cat: "Nom" }, { en: "practice", fr: "pratique", cat: "Nom" },
-  { en: "experience", fr: "expérience", cat: "Nom" },
+  { en: "experience", fr: "expérience", cat: "Nom" }, { en: "to attend", fr: "assister à", cat: "Verbe" },
+  { en: "to manage", fr: "gérer / réussir", cat: "Verbe" }, { en: "to target", fr: "cibler", cat: "Verbe" },
 
   // LOT 16 : Technologie et Internet
   { en: "internet", fr: "internet", cat: "Nom" }, { en: "website", fr: "site web", cat: "Nom" },
@@ -352,7 +368,8 @@ const allWords = [
   { en: "share", fr: "partager", cat: "Verbe" }, { en: "save", fr: "sauvegarder", cat: "Verbe" },
   { en: "delete", fr: "supprimer", cat: "Verbe" }, { en: "update", fr: "mettre à jour", cat: "Verbe" },
   { en: "print", fr: "imprimer", cat: "Verbe" }, { en: "link", fr: "lien", cat: "Nom" },
-  { en: "user", fr: "utilisateur", cat: "Nom" },
+  { en: "user", fr: "utilisateur", cat: "Nom" }, { en: "to skim", fr: "survoler", cat: "Verbe" },
+  { en: "to store", fr: "stocker", cat: "Verbe" }, { en: "to remind", fr: "rappeler", cat: "Verbe" },
 
   // LOT 17 : Santé et Médecine
   { en: "health", fr: "santé", cat: "Nom" }, { en: "doctor", fr: "médecin", cat: "Nom" },
@@ -373,7 +390,8 @@ const allWords = [
   { en: "pregnant", fr: "enceinte", cat: "Adjectif" }, { en: "well-being", fr: "bien-être", cat: "Nom" },
   { en: "rest", fr: "repos", cat: "Nom" }, { en: "sleep", fr: "sommeil", cat: "Nom" },
   { en: "care", fr: "soin / attention", cat: "Nom" }, { en: "clinic", fr: "clinique", cat: "Nom" },
-  { en: "patient", fr: "patient (médical)", cat: "Nom" },
+  { en: "patient", fr: "patient (médical)", cat: "Nom" }, { en: "to rest", fr: "se reposer", cat: "Verbe" },
+  { en: "motivated", fr: "motivé", cat: "Adjectif" }, { en: "a bit", fr: "un peu", cat: "Adverbe" },
 
   // LOT 18 : Émotions et Personnalité
   { en: "angry", fr: "en colère", cat: "Adjectif" }, { en: "calm", fr: "calme", cat: "Adjectif" },
@@ -394,7 +412,8 @@ const allWords = [
   { en: "smart", fr: "intelligent", cat: "Adjectif" }, { en: "clever", fr: "astucieux", cat: "Adjectif" },
   { en: "stupid", fr: "stupide", cat: "Adjectif" }, { en: "funny", fr: "drôle", cat: "Adjectif" },
   { en: "serious", fr: "sérieux", cat: "Adjectif" }, { en: "lazy", fr: "paresseux", cat: "Adjectif" },
-  { en: "shy", fr: "timide", cat: "Adjectif" },
+  { en: "shy", fr: "timide", cat: "Adjectif" }, { en: "to bother", fr: "déranger", cat: "Verbe" },
+  { en: "to annoy", fr: "agacer", cat: "Verbe" }, { en: "not at all", fr: "pas du tout", cat: "Expression" },
 
   // LOT 19 : Shopping et Argent
   { en: "money", fr: "argent", cat: "Nom" }, { en: "cash", fr: "argent liquide", cat: "Nom" },
@@ -409,13 +428,14 @@ const allWords = [
   { en: "profit", fr: "profit", cat: "Nom" }, { en: "loss", fr: "perte", cat: "Nom" },
   { en: "economy", fr: "économie", cat: "Nom" }, { en: "customer", fr: "client", cat: "Nom" },
   { en: "client", fr: "client", cat: "Nom" }, { en: "spend", fr: "dépenser", cat: "Verbe" },
-  { en: "earn", fr: "gagner de l'argent", cat: "Verbe" }, { en: "save", fr: "économiser", cat: "Verbe" },
-  { en: "invest", fr: "investir", cat: "Verbe" }, { en: "rent", fr: "louer", cat: "Verbe" },
-  { en: "own", fr: "posséder", cat: "Verbe" }, { en: "deliver", fr: "livrer", cat: "Verbe" },
-  { en: "return", fr: "retourner un article", cat: "Verbe" }, { en: "exchange", fr: "échanger", cat: "Verbe" },
-  { en: "shop", fr: "magasin / faire des courses", cat: "Nom" }, { en: "market", fr: "marché", cat: "Nom" },
-  { en: "store", fr: "magasin", cat: "Nom" }, { en: "bank", fr: "banque", cat: "Nom" },
-  { en: "wallet", fr: "portefeuille", cat: "Nom" },
+  { en: "earn", fr: "gagner de l'argent", cat: "Verbe" }, { en: "invest", fr: "investir", cat: "Verbe" },
+  { en: "rent", fr: "louer", cat: "Verbe" }, { en: "own", fr: "posséder", cat: "Verbe" },
+  { en: "deliver", fr: "livrer", cat: "Verbe" }, { en: "return", fr: "retourner un article", cat: "Verbe" },
+  { en: "exchange", fr: "échanger", cat: "Verbe" }, { en: "shop", fr: "magasin / faire des courses", cat: "Nom" },
+  { en: "market", fr: "marché", cat: "Nom" }, { en: "store", fr: "magasin", cat: "Nom" },
+  { en: "bank", fr: "banque", cat: "Nom" }, { en: "wallet", fr: "portefeuille", cat: "Nom" },
+  { en: "available", fr: "disponible", cat: "Adjectif" }, { en: "luck", fr: "chance", cat: "Nom" },
+  { en: "spare time", fr: "temps libre", cat: "Nom" }, { en: "make sense", fr: "être logique", cat: "Expression" },
 
   // LOT 20 : Loisirs et Divertissement
   { en: "game", fr: "jeu", cat: "Nom" }, { en: "sport", fr: "sport", cat: "Nom" },
@@ -436,28 +456,30 @@ const allWords = [
   { en: "joke", fr: "plaisanter / blague", cat: "Verbe" }, { en: "vacation", fr: "vacances", cat: "Nom" },
   { en: "holiday", fr: "jour férié / vacances", cat: "Nom" }, { en: "festival", fr: "festival", cat: "Nom" },
   { en: "fun", fr: "amusement", cat: "Nom" }, { en: "leisure", fr: "loisir", cat: "Nom" },
-  { en: "ticket", fr: "billet / ticket", cat: "Nom" },
+  { en: "gathering", fr: "rassemblement", cat: "Nom" }, { en: "to waste", fr: "gaspiller", cat: "Verbe" },
+  { en: "to dare", fr: "oser", cat: "Verbe" }, { en: "over and over", fr: "encore et encore", cat: "Expression" },
 
   // LOT 21 : Ville et Services
   { en: "city", fr: "grande ville", cat: "Nom" }, { en: "town", fr: "ville", cat: "Nom" },
   { en: "village", fr: "village", cat: "Nom" }, { en: "country", fr: "pays / campagne", cat: "Nom" },
   { en: "neighborhood", fr: "quartier", cat: "Nom" }, { en: "downtown", fr: "centre-ville", cat: "Nom" },
-  { en: "address", fr: "adresse", cat: "Nom" }, { en: "park", fr: "parc", cat: "Nom" },
-  { en: "square", fr: "place (ville)", cat: "Nom" }, { en: "post office", fr: "bureau de poste", cat: "Nom" },
-  { en: "police", fr: "police", cat: "Nom" }, { en: "library", fr: "bibliothèque", cat: "Nom" },
-  { en: "restaurant", fr: "restaurant", cat: "Nom" }, { en: "cafe", fr: "café (lieu)", cat: "Nom" },
-  { en: "facility", fr: "équipement / installation", cat: "Nom" }, { en: "government", fr: "gouvernement", cat: "Nom" },
-  { en: "law", fr: "loi", cat: "Nom" }, { en: "rule", fr: "règle", cat: "Nom" },
-  { en: "power", fr: "pouvoir", cat: "Nom" }, { en: "leader", fr: "dirigeant", cat: "Nom" },
-  { en: "service", fr: "service", cat: "Nom" }, { en: "society", fr: "société", cat: "Nom" },
-  { en: "culture", fr: "culture", cat: "Nom" }, { en: "freedom", fr: "liberté", cat: "Nom" },
-  { en: "justice", fr: "justice", cat: "Nom" }, { en: "right", fr: "droit (légal)", cat: "Nom" },
+  { en: "address", fr: "adresse", cat: "Nom" }, { en: "square", fr: "place (ville)", cat: "Nom" },
+  { en: "post office", fr: "bureau de poste", cat: "Nom" }, { en: "police", fr: "police", cat: "Nom" },
+  { en: "library", fr: "bibliothèque", cat: "Nom" }, { en: "restaurant", fr: "restaurant", cat: "Nom" },
+  { en: "cafe", fr: "café (lieu)", cat: "Nom" }, { en: "facility", fr: "équipement / installation", cat: "Nom" },
+  { en: "government", fr: "gouvernement", cat: "Nom" }, { en: "law", fr: "loi", cat: "Nom" },
+  { en: "rule", fr: "règle", cat: "Nom" }, { en: "power", fr: "pouvoir", cat: "Nom" },
+  { en: "leader", fr: "dirigeant", cat: "Nom" }, { en: "service", fr: "service", cat: "Nom" },
+  { en: "society", fr: "société", cat: "Nom" }, { en: "culture", fr: "culture", cat: "Nom" },
+  { en: "freedom", fr: "liberté", cat: "Nom" }, { en: "justice", fr: "justice", cat: "Nom" },
   { en: "duty", fr: "devoir / obligation", cat: "Nom" }, { en: "community", fr: "communauté", cat: "Nom" },
   { en: "public", fr: "public", cat: "Adjectif" }, { en: "private", fr: "privé", cat: "Adjectif" },
   { en: "citizen", fr: "citoyen", cat: "Nom" }, { en: "mayor", fr: "maire", cat: "Nom" },
   { en: "court", fr: "tribunal / cour", cat: "Nom" }, { en: "crime", fr: "crime", cat: "Nom" },
-  { en: "safety", fr: "sécurité", cat: "Nom" }, { en: "tax", fr: "impôt", cat: "Nom" },
-  { en: "trash", fr: "déchets", cat: "Nom" },
+  { en: "safety", fr: "sécurité", cat: "Nom" }, { en: "compliance", fr: "conformité", cat: "Nom" },
+  { en: "interior", fr: "intérieur", cat: "Nom" }, { en: "witness", fr: "témoin", cat: "Nom" },
+  { en: "mix-up", fr: "confusion", cat: "Nom" }, { en: "out there", fr: "quelque part / dehors", cat: "Expression" },
+  { en: "to neglect", fr: "négliger", cat: "Verbe" }, { en: "anything", fr: "n'importe quoi", cat: "Pronom" },
 
   // LOT 22 : Communication
   { en: "explain", fr: "expliquer", cat: "Verbe" }, { en: "describe", fr: "décrire", cat: "Verbe" },
@@ -478,7 +500,8 @@ const allWords = [
   { en: "meaning", fr: "signification", cat: "Nom" }, { en: "voice", fr: "voix", cat: "Nom" },
   { en: "sound", fr: "son", cat: "Nom" }, { en: "silence", fr: "silence", cat: "Nom" },
   { en: "opinion", fr: "avis", cat: "Nom" }, { en: "advice", fr: "conseil", cat: "Nom" },
-  { en: "secret", fr: "secret", cat: "Nom" },
+  { en: "secret", fr: "secret", cat: "Nom" }, { en: "to sound like", fr: "on dirait que", cat: "Verbe" },
+  { en: "to look like", fr: "ressembler à", cat: "Verbe" }, { en: "how about", fr: "et si / que dirais-tu de", cat: "Expression" },
 
   // LOT 23 : Science et Méthode
   { en: "science", fr: "science", cat: "Nom" }, { en: "research", fr: "recherche", cat: "Nom" },
@@ -493,13 +516,14 @@ const allWords = [
   { en: "method", fr: "méthode", cat: "Nom" }, { en: "process", fr: "processus", cat: "Nom" },
   { en: "system", fr: "système", cat: "Nom" }, { en: "result", fr: "résultat", cat: "Nom" },
   { en: "effect", fr: "effet", cat: "Nom" }, { en: "cause", fr: "cause", cat: "Nom" },
-  { en: "test", fr: "test / tester", cat: "Nom" }, { en: "sample", fr: "échantillon", cat: "Nom" },
-  { en: "formula", fr: "formule", cat: "Nom" }, { en: "logic", fr: "logique", cat: "Nom" },
-  { en: "observe", fr: "observer", cat: "Verbe" }, { en: "examine", fr: "examiner", cat: "Verbe" },
-  { en: "compare", fr: "comparer", cat: "Verbe" }, { en: "definition", fr: "définition", cat: "Nom" },
-  { en: "structure", fr: "structure", cat: "Nom" }, { en: "element", fr: "élément", cat: "Nom" },
-  { en: "unit", fr: "unité", cat: "Nom" }, { en: "scale", fr: "échelle / mesure", cat: "Nom" },
-  { en: "weight", fr: "poids", cat: "Nom" },
+  { en: "sample", fr: "échantillon", cat: "Nom" }, { en: "formula", fr: "formule", cat: "Nom" },
+  { en: "logic", fr: "logique", cat: "Nom" }, { en: "observe", fr: "observer", cat: "Verbe" },
+  { en: "examine", fr: "examiner", cat: "Verbe" }, { en: "compare", fr: "comparer", cat: "Verbe" },
+  { en: "definition", fr: "définition", cat: "Nom" }, { en: "structure", fr: "structure", cat: "Nom" },
+  { en: "element", fr: "élément", cat: "Nom" }, { en: "unit", fr: "unité", cat: "Nom" },
+  { en: "scale", fr: "échelle / mesure", cat: "Nom" }, { en: "weight", fr: "poids", cat: "Nom" },
+  { en: "to occur", fr: "se produire", cat: "Verbe" }, { en: "make sure", fr: "s'assurer", cat: "Expression" },
+  { en: "smoothly", fr: "sans problème", cat: "Adverbe" }, { en: "instead", fr: "plutôt", cat: "Adverbe" },
 
   // LOT 24 : Modaux et Expressions
   { en: "can", fr: "pouvoir (capacité)", cat: "Modal" }, { en: "could", fr: "pouvoir (conditionnel/passé)", cat: "Modal" },
@@ -520,7 +544,8 @@ const allWords = [
   { en: "each other", fr: "l'un l'autre", cat: "Pronom" }, { en: "right now", fr: "tout de suite", cat: "Expression" },
   { en: "in the beginning", fr: "au début", cat: "Expression" }, { en: "at the end", fr: "à la fin", cat: "Expression" },
   { en: "instead of", fr: "au lieu de", cat: "Prep" }, { en: "because of", fr: "à cause de", cat: "Prep" },
-  { en: "by the way", fr: "au fait", cat: "Expression" },
+  { en: "by the way", fr: "au fait", cat: "Expression" }, { en: "pay attention", fr: "faire attention", cat: "Expression" },
+  { en: "no matter", fr: "peu importe", cat: "Expression" }, { en: "when it comes to", fr: "quand il s'agit de", cat: "Expression" },
 
   // LOT 25 : Relations sociales
   { en: "relationship", fr: "relation", cat: "Nom" }, { en: "marriage", fr: "mariage", cat: "Nom" },
@@ -537,53 +562,56 @@ const allWords = [
   { en: "lonely", fr: "solitaire", cat: "Adjectif" }, { en: "somebody", fr: "quelqu'un", cat: "Pronom" },
   { en: "nobody", fr: "personne", cat: "Pronom" }, { en: "everybody", fr: "tout le monde", cat: "Pronom" },
   { en: "guest", fr: "invité", cat: "Nom" }, { en: "host", fr: "hôte", cat: "Nom" },
-  { en: "neighbor", fr: "voisin", cat: "Nom" }, { en: "member", fr: "membre", cat: "Nom" },
-  { en: "adult", fr: "adulte", cat: "Nom" }, { en: "stranger", fr: "inconnu", cat: "Nom" },
-  { en: "enemy", fr: "ennemi", cat: "Nom" }, { en: "partner", fr: "partenaire", cat: "Nom" },
+  { en: "member", fr: "membre", cat: "Nom" }, { en: "adult", fr: "adulte", cat: "Nom" },
   { en: "friendship", fr: "amitié", cat: "Nom" }, { en: "conflict", fr: "conflit", cat: "Nom" },
-  { en: "share", fr: "partager", cat: "Verbe" },
+  { en: "themselves", fr: "eux-mêmes", cat: "Pronom" }, { en: "another", fr: "un autre", cat: "Adjectif" },
+  { en: "sweetheart", fr: "chéri(e)", cat: "Nom" }, { en: "familiar", fr: "familier", cat: "Adjectif" },
+  { en: "several", fr: "plusieurs", cat: "Adjectif" }, { en: "all of you", fr: "vous tous", cat: "Expression" },
+  { en: "interested in", fr: "intéressé par", cat: "Expression" }, { en: "anyone", fr: "n'importe qui", cat: "Pronom" },
 
   // LOT 26 : Concepts abstraits
   { en: "idea", fr: "idée", cat: "Nom" }, { en: "thought", fr: "pensée", cat: "Nom" },
   { en: "mind", fr: "esprit", cat: "Nom" }, { en: "reason", fr: "raison", cat: "Nom" },
   { en: "purpose", fr: "but / objectif", cat: "Nom" }, { en: "truth", fr: "vérité", cat: "Nom" },
-  { en: "lie", fr: "mensonge", cat: "Nom" }, { en: "point", fr: "point de vue", cat: "Nom" },
-  { en: "problem", fr: "problème", cat: "Nom" }, { en: "issue", fr: "problème / sujet", cat: "Nom" },
-  { en: "outcome", fr: "issue / résultat", cat: "Nom" }, { en: "impact", fr: "impact", cat: "Nom" },
-  { en: "chance", fr: "chance / opportunité", cat: "Nom" }, { en: "risk", fr: "risque", cat: "Nom" },
-  { en: "possibility", fr: "possibilité", cat: "Nom" }, { en: "choice", fr: "choix", cat: "Nom" },
-  { en: "option", fr: "option", cat: "Nom" }, { en: "difference", fr: "différence", cat: "Nom" },
-  { en: "similarity", fr: "similitude", cat: "Nom" }, { en: "change", fr: "changement", cat: "Nom" },
-  { en: "condition", fr: "condition", cat: "Nom" }, { en: "situation", fr: "situation", cat: "Nom" },
-  { en: "state", fr: "état", cat: "Nom" }, { en: "case", fr: "cas", cat: "Nom" },
-  { en: "example", fr: "exemple", cat: "Nom" }, { en: "detail", fr: "détail", cat: "Nom" },
-  { en: "part", fr: "partie", cat: "Nom" }, { en: "whole", fr: "tout / ensemble", cat: "Nom" },
-  { en: "bias", fr: "biais / préjugé", cat: "Nom" }, { en: "overview", fr: "aperçu", cat: "Nom" },
-  { en: "motive", fr: "motif / intention", cat: "Nom" }, { en: "nature", fr: "essence / nature", cat: "Nom" },
+  { en: "point", fr: "point de vue", cat: "Nom" }, { en: "problem", fr: "problème", cat: "Nom" },
+  { en: "issue", fr: "problème / sujet", cat: "Nom" }, { en: "outcome", fr: "issue / résultat", cat: "Nom" },
+  { en: "impact", fr: "impact", cat: "Nom" }, { en: "chance", fr: "chance / opportunité", cat: "Nom" },
+  { en: "risk", fr: "risque", cat: "Nom" }, { en: "possibility", fr: "possibilité", cat: "Nom" },
+  { en: "choice", fr: "choix", cat: "Nom" }, { en: "option", fr: "option", cat: "Nom" },
+  { en: "difference", fr: "différence", cat: "Nom" }, { en: "similarity", fr: "similitude", cat: "Nom" },
+  { en: "change", fr: "changement", cat: "Nom" }, { en: "condition", fr: "condition", cat: "Nom" },
+  { en: "situation", fr: "situation", cat: "Nom" }, { en: "state", fr: "état", cat: "Nom" },
+  { en: "case", fr: "cas", cat: "Nom" }, { en: "example", fr: "exemple", cat: "Nom" },
+  { en: "detail", fr: "détail", cat: "Nom" }, { en: "part", fr: "partie", cat: "Nom" },
+  { en: "whole", fr: "tout / ensemble", cat: "Nom" }, { en: "bias", fr: "biais / préjugé", cat: "Nom" },
+  { en: "overview", fr: "aperçu", cat: "Nom" }, { en: "motive", fr: "motif / intention", cat: "Nom" },
   { en: "concept", fr: "concept", cat: "Nom" }, { en: "aspect", fr: "aspect", cat: "Nom" },
   { en: "factor", fr: "facteur", cat: "Nom" }, { en: "context", fr: "contexte", cat: "Nom" },
-  { en: "perspective", fr: "perspective", cat: "Nom" },
+  { en: "perspective", fr: "perspective", cat: "Nom" }, { en: "same thing", fr: "même chose", cat: "Nom" },
+  { en: "whatever", fr: "quoi que ce soit / peu importe", cat: "Pronom" }, { en: "nothing", fr: "rien", cat: "Pronom" },
+  { en: "everything", fr: "tout", cat: "Pronom" }, { en: "as much as", fr: "autant que", cat: "Expression" },
 
   // LOT 27 : Descriptions physiques
-  { en: "tall", fr: "grand (hauteur)", cat: "Adjectif" }, { en: "short", fr: "petit (taille)", cat: "Adjectif" },
-  { en: "fat", fr: "gros", cat: "Adjectif" }, { en: "thin", fr: "mince", cat: "Adjectif" },
+  { en: "tall", fr: "grand (hauteur)", cat: "Adjectif" }, { en: "fat", fr: "gros", cat: "Adjectif" },
   { en: "huge", fr: "énorme", cat: "Adjectif" }, { en: "tiny", fr: "minuscule", cat: "Adjectif" },
   { en: "large", fr: "grand / vaste", cat: "Adjectif" }, { en: "straight", fr: "droit / direct", cat: "Adjectif" },
   { en: "curved", fr: "courbé", cat: "Adjectif" }, { en: "sharp", fr: "tranchant / aigu", cat: "Adjectif" },
   { en: "dull", fr: "émoussé / terne", cat: "Adjectif" }, { en: "smooth", fr: "lisse", cat: "Adjectif" },
   { en: "rough", fr: "rugueux / brutal", cat: "Adjectif" }, { en: "hardened", fr: "durci", cat: "Adjectif" },
-  { en: "handsome", fr: "beau (homme)", cat: "Adjectif" }, { en: "square", fr: "carré", cat: "Adjectif" },
-  { en: "round", fr: "rond", cat: "Adjectif" }, { en: "distance", fr: "distance", cat: "Nom" },
+  { en: "handsome", fr: "beau (homme)", cat: "Adjectif" }, { en: "distance", fr: "distance", cat: "Nom" },
   { en: "height", fr: "hauteur / taille", cat: "Nom" }, { en: "appearance", fr: "apparence", cat: "Nom" },
   { en: "feature", fr: "trait / caractéristique", cat: "Nom" }, { en: "shape", fr: "forme", cat: "Nom" },
   { en: "pattern", fr: "motif / modèle", cat: "Nom" }, { en: "surface", fr: "surface", cat: "Nom" },
   { en: "solid", fr: "solide", cat: "Adjectif" }, { en: "liquid", fr: "liquide", cat: "Nom" },
-  { en: "softness", fr: "douceur", cat: "Nom" }, { en: "strength", fr: "résistance / force", cat: "Nom" },
-  { en: "depth", fr: "profondeur", cat: "Nom" }, { en: "width", fr: "largeur", cat: "Nom" },
-  { en: "length", fr: "longueur", cat: "Nom" }, { en: "blind", fr: "aveugle", cat: "Adjectif" },
-  { en: "deaf", fr: "sourd", cat: "Adjectif" }, { en: "bald", fr: "chauve", cat: "Adjectif" },
-  { en: "slender", fr: "élancé", cat: "Adjectif" }, { en: "muscular", fr: "musclé", cat: "Adjectif" },
-  { en: "pale", fr: "pâle", cat: "Adjectif" },
+  { en: "softness", fr: "douceur", cat: "Nom" }, { en: "depth", fr: "profondeur", cat: "Nom" },
+  { en: "width", fr: "largeur", cat: "Nom" }, { en: "length", fr: "longueur", cat: "Nom" },
+  { en: "blind", fr: "aveugle", cat: "Adjectif" }, { en: "deaf", fr: "sourd", cat: "Adjectif" },
+  { en: "bald", fr: "chauve", cat: "Adjectif" }, { en: "slender", fr: "élancé", cat: "Adjectif" },
+  { en: "muscular", fr: "musclé", cat: "Adjectif" }, { en: "pale", fr: "pâle", cat: "Adjectif" },
+  { en: "tough", fr: "difficile", cat: "Adjectif" }, { en: "odd", fr: "étrange / impair", cat: "Adjectif" },
+  { en: "stuck", fr: "coincé", cat: "Adjectif" }, { en: "unusual", fr: "inhabituel", cat: "Adjectif" },
+  { en: "usual", fr: "habituel", cat: "Adjectif" }, { en: "most", fr: "la plupart", cat: "Pronom" },
+  { en: "usually", fr: "généralement", cat: "Adverbe" }, { en: "definitely", fr: "certainement", cat: "Adverbe" },
 
   // LOT 28 : Verbes d'action élaborés
   { en: "to create", fr: "créer", cat: "Verbe" }, { en: "to build", fr: "construire", cat: "Verbe" },
@@ -604,7 +632,8 @@ const allWords = [
   { en: "to place", fr: "placer", cat: "Verbe" }, { en: "to cook", fr: "cuisiner", cat: "Verbe" },
   { en: "to drive", fr: "conduire", cat: "Verbe" }, { en: "to fly", fr: "voler (air)", cat: "Verbe" },
   { en: "to ride", fr: "monter (vélo/cheval)", cat: "Verbe" }, { en: "to swim", fr: "nager", cat: "Verbe" },
-  { en: "to prepare", fr: "préparer", cat: "Verbe" },
+  { en: "to prepare", fr: "préparer", cat: "Verbe" }, { en: "got it", fr: "j'ai compris", cat: "Expression" },
+  { en: "no way", fr: "certainement pas", cat: "Expression" }, { en: "something else", fr: "autre chose", cat: "Pronom" },
 
   // LOT 29 : Vocabulaire académique et Structuration
   { en: "to ensure", fr: "s'assurer de", cat: "Verbe" }, { en: "to allow", fr: "permettre", cat: "Verbe" },
@@ -625,7 +654,8 @@ const allWords = [
   { en: "phase", fr: "phase", cat: "Nom" }, { en: "level", fr: "niveau", cat: "Nom" },
   { en: "workload", fr: "charge de travail", cat: "Nom" }, { en: "effective", fr: "efficace", cat: "Adjectif" },
   { en: "hectic", fr: "très chargé", cat: "Adjectif" }, { en: "contract", fr: "contrat", cat: "Nom" },
-  { en: "deal", fr: "accord / affaire", cat: "Nom" },
+  { en: "deal", fr: "accord / affaire", cat: "Nom" }, { en: "anyway", fr: "de toute façon", cat: "Adverbe" },
+  { en: "what's next", fr: "et ensuite", cat: "Expression" }, { en: "not really", fr: "pas vraiment", cat: "Expression" },
 
   // LOT 30 : Derniers essentiels et Nuances formelles
   { en: "decade", fr: "décennie", cat: "Nom" }, { en: "century", fr: "siècle", cat: "Nom" },
@@ -646,7 +676,8 @@ const allWords = [
   { en: "forward", fr: "en avant", cat: "Adverbe" }, { en: "furthermore", fr: "de plus", cat: "Adverbe" },
   { en: "moreover", fr: "de plus", cat: "Adverbe" }, { en: "nevertheless", fr: "néanmoins", cat: "Adverbe" },
   { en: "otherwise", fr: "sinon", cat: "Adverbe" }, { en: "unless", fr: "à moins que", cat: "Conjonction" },
-  { en: "indeed", fr: "en effet", cat: "Adverbe" }
+  { en: "indeed", fr: "en effet", cat: "Adverbe" }, { en: "strongly agree", fr: "être tout à fait d'accord", cat: "Expression" },
+  { en: "for a while", fr: "pendant un moment", cat: "Expression" }, { en: "alright", fr: "d'accord / très bien", cat: "Autre" }
 ];
 
 const catColors: Record<string, string> = {
